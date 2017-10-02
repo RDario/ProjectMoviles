@@ -1,4 +1,4 @@
-package com.lmad.dariovbanda.dvprojectmoviles;
+package com.dariov.moviles.lumieresclub;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

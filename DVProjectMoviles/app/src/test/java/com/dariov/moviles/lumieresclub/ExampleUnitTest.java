@@ -1,4 +1,4 @@
-package com.lmad.dariovbanda.dvprojectmoviles;
+package com.dariov.moviles.lumieresclub;
 
 import org.junit.Test;
 
