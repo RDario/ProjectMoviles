@@ -8,4 +8,7 @@
     <color name="grisClaro">#BDBDBD</color>
     <color name="blanco">#FFFFFF</color>
     <color name="negro">#000000</color>
+    <color name="grisTransparente">#59A4A4A4</color>
+    <color name="azulFacebook">#3B5998</color>
+    <color name="azulTwitter">#00ACED</color>
 </resources>

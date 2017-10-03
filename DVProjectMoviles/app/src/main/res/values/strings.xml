@@ -1,11 +1,15 @@
 <resources>
-    <string name="facebook_app_id">401966050218822</string>
     <string name="app_name">Lumieres Club</string>
+    <string name="facebook_app_id">401966050218822</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">VheZDG8kenhgw5qj13Y3bIogO</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">LHcXjgKoJM233Snv3QtRDykfy84VGHuWzrtWs36dnWmVhjlK5s</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
+    <string name="txt_facebook">Facebook</string>
+    <string name="txt_facebook_login">Log in with Facebook</string>
+    <string name="txt_facebook_logout">Log out with Facebook</string>
 
     <!-- Test/Debug Strings -->
     <string name="txt_placeholder">Placeholder App</string>

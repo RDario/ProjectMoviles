@@ -69,6 +69,21 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener 
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     public void onClick(View view) {
     }
 }
