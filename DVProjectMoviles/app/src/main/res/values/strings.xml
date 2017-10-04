@@ -9,15 +9,40 @@
     <string name="action_settings">Settings</string>
     <string name="txt_facebook">Facebook</string>
     <string name="txt_facebook_login">Log in with Facebook</string>
-    <string name="txt_facebook_logout">Log out with Facebook</string>
+    <string name="txt_facebook_logout">Log out</string>
+    <string name="txt_twitter_login">Log in with Twitter</string>
+    <string name="txt_twitter_logout">Log out</string>
+
+    <!-- Strings de producción -->
+    <string name="txt_mensaje_login">¡Inicia sesión en tus red social favorita para compartir contenido!</string>
+    <string name="txt_mensaje_btn_login">Continuar sin iniciar sesión</string>
+    <string name="txt_mensaje_nuevo_articulo">¡Escribe y comparte tu lectura!</string>
+    <string name="txt_mensaje_titulo_poema">En los Campos de Flandes</string>
+    <string name="txt_mensaje_texto_poema">En los Campos de Flandes donde crecen las amapolas…</string>
+    <string name="txt_mensaje_texto_poema_fuente">Poema En los Campos de Flandes</string>
 
     <!-- Test/Debug Strings -->
     <string name="txt_placeholder">Placeholder App</string>
-    <string name="txt_titulo">Titulo Aqui</string>
-    <string name="txt_subtitulo">Subtitulo Aqui</string>
+    <string name="txt_titulo">Titulo</string>
+    <string name="txt_subtitulo">Subtitulo</string>
+    <string name="txt_texto">Texto</string>
     <string name="txt_contenido">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
     <string name="txt_nombre">Nombre</string>
+    <string name="txt_autor">Autor</string>
     <string name="txt_apellidos">Apellidos</string>
     <string name="txt_edad">Edad</string>
     <string name="txt_telefono">Telefono</string>
+    <string name="txt_seleccionar_autor">Selecciona autor</string>
+    <string name="txt_seleccionar_fuente">Seleccionar fuente</string>
+    <string name="txt_seleccionar_tipo">Seleccionar tipo</string>
+    <string name="txt_mensaje_autor">Elige un autor que hayas guardado</string>
+    <string name="txt_mensaje_nuevo_autor">Nuevo autor</string>
+    <string name="txt_mensaje_guardar_autor">Guardar autor</string>
+    <string name="txt_mensaje_guardar_borrador">Guardar en borrador</string>
+    <string name="txt_mensaje_extraido">Texto extraído de</string>
+    <string name="txt_mensaje_fuente">Elige una fuente que hayas guardado</string>
+    <string name="txt_mensaje_guardar_fuente">Guardar fuente</string>
+    <string name="txt_mensaje_tipo_fuente">Tipo de fuente</string>
+    <string name="txt_mensaje_publicar">Publicar</string>
+    <string name="txt_mensaje_ultimas_publicaciones">Últimas publicaciones</string>
 </resources>

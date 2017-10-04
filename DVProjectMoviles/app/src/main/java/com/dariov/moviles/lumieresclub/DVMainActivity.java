@@ -3,7 +3,7 @@ package com.dariov.moviles.lumieresclub;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -31,13 +31,13 @@ import com.facebook.FacebookException;
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
-import com.twitter.sdk.android.core.DefaultLogger;
+import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterConfig;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -45,6 +45,7 @@ import java.util.LinkedList;
 public class DVMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener,
         FacebookCallback<LoginResult>, View.OnClickListener {
     private TextView _txtNomUser, _txtApeUser, _btnLoginFace;
+    private TwitterLoginButton _twitterLoginButton;
     private AccessTokenTracker _accessTokenTracker;
     private CallbackManager callbackManager;
     private ViewPager _viewPager;
@@ -63,6 +64,9 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.floatActionBottom);
+        floatingActionButton.setOnClickListener(this);
 
         TabLayout _tabLayoutMain = (TabLayout) findViewById(R.id.tabLayoutMain);
         _tabLayoutMain.addOnTabSelectedListener(this);
@@ -84,6 +88,7 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         _txtNomUser = loginHeader.findViewById(R.id.txtNomUser);
         _txtApeUser = loginHeader.findViewById(R.id.txtApeUser);
         _btnLoginFace = loginHeader.findViewById(R.id.btnLoginFace);
+        _twitterLoginButton = loginHeader.findViewById(R.id.btnLoginTwitter);
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, this);
         _btnLoginFace.setOnClickListener(this);
@@ -100,10 +105,12 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
             setDatosLoginFacebook(Profile.getCurrentProfile().getFirstName(),
                     Profile.getCurrentProfile().getMiddleName() + " " + Profile.getCurrentProfile().getLastName(),
                     Profile.getCurrentProfile().getProfilePictureUri(100, 100));
+            _twitterLoginButton.setVisibility(View.GONE);
         } else {
             _btnLoginFace.setTag(false);
             _btnLoginFace.setText(getResources().getString(R.string.txt_facebook_login));
             setDatosLoginFacebook("", "", R.drawable.profile_pic_placeholder);
+            _twitterLoginButton.setVisibility(View.VISIBLE);
         }
     }
 
@@ -120,6 +127,7 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
+        _twitterLoginButton.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
@@ -164,6 +172,7 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
             setDatosLoginFacebook(Profile.getCurrentProfile().getFirstName(),
                     Profile.getCurrentProfile().getMiddleName() + " " +Profile.getCurrentProfile().getMiddleName(),
                     Profile.getCurrentProfile().getProfilePictureUri(100, 100));
+            _twitterLoginButton.setVisibility(View.GONE);
         }
     }
 
@@ -189,12 +198,27 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
                 _btnLoginFace.setText(getResources().getString(R.string.txt_facebook_login));
                 _btnLoginFace.setTag(false);
                 setDatosLoginFacebook("", "", R.drawable.profile_pic_placeholder);
+                _twitterLoginButton.setVisibility(View.VISIBLE);
             } else {
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
                 _accessTokenTracker.startTracking();
                 _btnLoginFace.setText(getResources().getString(R.string.txt_facebook_logout));
                 _btnLoginFace.setTag(true);
+                _twitterLoginButton.setVisibility(View.GONE);
             }
+        } else if (view.getId() == R.id.btnLoginTwitter) {
+            _twitterLoginButton.setCallback(new com.twitter.sdk.android.core.Callback<TwitterSession>() {
+                @Override
+                public void success(Result<TwitterSession> result) {
+                }
+
+                @Override
+                public void failure(TwitterException exception) {
+                }
+            });
+        } else if (view.getId() == R.id.floatActionBottom) {
+            Intent intent = new Intent(DVMainActivity.this, DVActivityNuevoArticulo.class);
+            startActivity(intent);
         }
     }
 

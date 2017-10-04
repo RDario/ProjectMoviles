@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.emilsjolander.components.StickyScrollViewItems.StickyScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgPerfil"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/profile_pic_placeholder"
+            android:tag="sticky"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/txtNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/negro"
+            android:textSize="22sp"
+            android:text="@string/txt_nombre"
+            android:gravity="center"
+            android:layout_below="@+id/imgPerfil"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
+            android:tag="sticky"/>
+
+        <TextView
+            android:id="@+id/txtMensajePerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_mensaje_ultimas_publicaciones"
+            android:gravity="center"
+            android:layout_below="@+id/txtNombre"
+            android:padding="8dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/txtMensajePerfil"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+        </android.support.v7.widget.RecyclerView>
+    </RelativeLayout>
+</com.emilsjolander.components.StickyScrollViewItems.StickyScrollView>

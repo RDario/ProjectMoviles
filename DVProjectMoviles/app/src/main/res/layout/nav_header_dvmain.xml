@@ -46,7 +46,7 @@
         android:text=""
         android:layout_gravity="center_horizontal"
         android:textColor="@color/blanco"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
@@ -57,6 +57,7 @@
         android:id="@+id/btnLoginTwitter"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:textSize="12sp"
         android:layout_below="@+id/btnLoginFace"
         android:layout_toRightOf="@+id/imgPerfil"/>
 </RelativeLayout>
