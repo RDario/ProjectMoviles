@@ -1,5 +1,6 @@
 package com.dariov.moviles.lumieresclub.adapters;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private LinkedList<DVArticulo> _listaArticulos;
+    private View.OnClickListener _clickListener;
 
     public DVAdapterListado() {
     }
@@ -30,6 +32,10 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void setListaArticulo(LinkedList<DVArticulo> lista) {
         this._listaArticulos = lista;
         notifyDataSetChanged();
+    }
+
+    public void setOnClickListener(View.OnClickListener clickListener) {
+        this._clickListener = clickListener;
     }
 
     @Override
@@ -71,6 +77,7 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
                             Log.e("Picasso", this.getClass().getSimpleName() + "----------error-al-cargar-imagen---------> ");
                         }
                     });
+            ((ViewHolderArticuloFull) holder)._cardView.setOnClickListener(_clickListener);
         }
     }
 
@@ -83,6 +90,7 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
 
     public static class ViewHolderArticuloFull extends RecyclerView.ViewHolder {
+        CardView _cardView;
         TextView _txtTitulo;
         TextView _txtDescripcion;
         TextView _txtNomUsuario;
@@ -92,6 +100,7 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         ViewHolderArticuloFull(View itemView) {
             super(itemView);
+            _cardView = itemView.findViewById(R.id.cardView);
             _txtTitulo = itemView.findViewById(R.id.txtTitulo);
             _txtDescripcion = itemView.findViewById(R.id.txtDescripcion);
             _txtNomUsuario = itemView.findViewById(R.id.txtNomUsuario);

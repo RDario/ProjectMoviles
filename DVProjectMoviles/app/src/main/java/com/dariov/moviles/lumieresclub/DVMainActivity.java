@@ -92,6 +92,7 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, this);
         _btnLoginFace.setOnClickListener(this);
+        _imgPerfil.setOnClickListener(this);
 
         _accessTokenTracker = new AccessTokenTracker() {
             @Override
@@ -112,6 +113,18 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
             setDatosLoginFacebook("", "", R.drawable.profile_pic_placeholder);
             _twitterLoginButton.setVisibility(View.VISIBLE);
         }
+
+        _twitterLoginButton.setCallback(new com.twitter.sdk.android.core.Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                Log.e(this.getClass().getSimpleName(), "-------Twitter-succes---> " + result);
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                Log.e(this.getClass().getSimpleName(), "-------Twitter-failure---> " + exception);
+            }
+        });
     }
 
     @Override
@@ -206,18 +219,11 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
                 _btnLoginFace.setTag(true);
                 _twitterLoginButton.setVisibility(View.GONE);
             }
-        } else if (view.getId() == R.id.btnLoginTwitter) {
-            _twitterLoginButton.setCallback(new com.twitter.sdk.android.core.Callback<TwitterSession>() {
-                @Override
-                public void success(Result<TwitterSession> result) {
-                }
-
-                @Override
-                public void failure(TwitterException exception) {
-                }
-            });
         } else if (view.getId() == R.id.floatActionBottom) {
             Intent intent = new Intent(DVMainActivity.this, DVActivityNuevoArticulo.class);
+            startActivity(intent);
+        } else if (view.getId() == R.id.imgPerfil){
+            Intent intent = new Intent(DVMainActivity.this, DVActivityPerfil.class);
             startActivity(intent);
         }
     }

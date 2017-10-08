@@ -1,48 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.emilsjolander.components.StickyScrollViewItems.StickyScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.emilsjolander.components.StickyScrollViewItems.StickyScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/stickyScrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:id="@+id/relativeCont"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/blanco">
 
-        <TextView
-            android:id="@+id/txtTitulo"
+        <LinearLayout
+            android:id="@+id/linearHeaderArticulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/txt_titulo"
-            android:textColor="@color/negro"
-            android:textStyle="bold"
-            android:textSize="24sp"
-            android:gravity="left"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="2dp"/>
+            android:orientation="vertical"
+            android:tag="sticky"
+            android:background="@color/blanco">
 
-        <TextView
-            android:id="@+id/txtSubtitulo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_subtitulo"
-            android:textColor="@color/gris"
-            android:textStyle="normal"
-            android:textSize="20sp"
-            android:gravity="left"
-            android:layout_below="@+id/txtTitulo"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="10dp"/>
+            <TextView
+                android:id="@+id/txtTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_titulo"
+                android:textColor="@color/negro"
+                android:textStyle="bold"
+                android:textSize="24sp"
+                android:gravity="left"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="2dp"/>
+
+            <TextView
+                android:id="@+id/txtSubtitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_subtitulo"
+                android:textColor="@color/gris"
+                android:textStyle="normal"
+                android:textSize="20sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"/>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/imgArticulo"
             android:layout_width="match_parent"
             android:layout_height="170dp"
-            android:layout_below="@+id/txtSubtitulo"
+            android:layout_below="@+id/linearHeaderArticulo"
             android:src="@color/cardview_dark_background"
             android:contentDescription="@string/txt_placeholder" />
 
@@ -50,20 +59,115 @@
             android:id="@+id/txtTexto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/txt_contenido"
+            android:text="@string/txt_contenido_bigger"
             android:textColor="@color/gris"
             android:textStyle="normal"
             android:textSize="18sp"
             android:gravity="left"
+            android:layout_marginTop="12dp"
             android:layout_below="@+id/imgArticulo"
+            android:layout_alignLeft="@+id/txtSeccion"
+            android:layout_alignStart="@+id/txtSeccion" />
+
+        <TextView
+            android:id="@+id/txtSeccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtTexto"
+            android:text="@string/txt_subtitulo"
+            android:textColor="@color/colorAccent"
+            android:textSize="15sp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
 
         <TextView
-            android:id="@+id/txtSeccion"
+            android:id="@+id/txtCompartir"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/negro"
+            android:text="@string/txt_mensaje_compartir"
+            android:textSize="15sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_below="@id/txtTexto"
+            android:layout_toRightOf="@+id/txtSeccion"/>
+
+        <RelativeLayout
+            android:id="@+id/relativeAutor"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/txtSeccion"
+            android:gravity="left"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgAutor"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:src="@drawable/profile_pic_placeholder"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+
+            <TextView
+                android:id="@+id/txtNombreAutor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:layout_toRightOf="@+id/imgAutor"
+                android:text="@string/txt_autor"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+
+            <TextView
+                android:id="@+id/txtMasAutor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/negro"
+                android:textSize="14sp"
+                android:layout_toRightOf="@+id/imgAutor"
+                android:layout_alignParentBottom="true"
+                android:text="@string/txt_mensaje_mas_sobre_autor"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
+        </RelativeLayout>
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/expandableView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeAutor"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:id="@+id/txtDescripcionAutor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gris"
+                android:textSize="14sp"
+                android:text="@string/txt_contenido"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:el_duration="700"
+                app:el_expanded="false"
+                app:el_parallax="0.5"/>
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+        <LinearLayout
+            android:id="@+id/linearEspacio"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="vertical"
+            android:background="@color/blanco"
+            android:layout_below="@+id/expandableView">
+        </LinearLayout>
     </RelativeLayout>
 </com.emilsjolander.components.StickyScrollViewItems.StickyScrollView>

@@ -1,13 +1,19 @@
 package com.dariov.moviles.lumieresclub.fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dariov.moviles.lumieresclub.DVActivityDetalleArticulo;
+import com.dariov.moviles.lumieresclub.DVActivityLogin;
+import com.dariov.moviles.lumieresclub.DVMainActivity;
 import com.dariov.moviles.lumieresclub.R;
 import com.dariov.moviles.lumieresclub.adapters.DVAdapterListado;
 import com.dariov.moviles.lumieresclub.models.DVArticulo;
@@ -62,6 +68,7 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener 
                         "Miklovish"));
             }
             _adapterListado.setListaArticulo(_listaMain);
+            _adapterListado.setOnClickListener(this);
             LinearLayoutManager llm = new LinearLayoutManager(_listView.getContext());
             _listView.setLayoutManager(llm);
             _listView.setAdapter(_adapterListado);
@@ -71,19 +78,25 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener 
     @Override
     public void onStop() {
         super.onStop();
+        Log.e(this.getClass().getSimpleName(), "-----Llego aqui onDestroy---> ");
     }
 
     @Override
     public void onPause() {
         super.onPause();
+        Log.e(this.getClass().getSimpleName(), "-----Llego aqui onDestroy---> ");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Log.e(this.getClass().getSimpleName(), "-----Llego aqui onDestroy---> ");
     }
 
     @Override
     public void onClick(View view) {
+        Intent intent = new Intent(getActivity(), DVActivityDetalleArticulo.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent. FLAG_ACTIVITY_MULTIPLE_TASK);
+        startActivityForResult(intent, 0);
     }
 }

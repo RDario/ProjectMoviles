@@ -20,6 +20,7 @@
     <string name="txt_mensaje_titulo_poema">En los Campos de Flandes</string>
     <string name="txt_mensaje_texto_poema">En los Campos de Flandes donde crecen las amapolas…</string>
     <string name="txt_mensaje_texto_poema_fuente">Poema En los Campos de Flandes</string>
+    <string name="txt_mensaje_mas_sobre_autor">Más sobre el autor</string>
 
     <!-- Test/Debug Strings -->
     <string name="txt_placeholder">Placeholder App</string>
@@ -27,6 +28,9 @@
     <string name="txt_subtitulo">Subtitulo</string>
     <string name="txt_texto">Texto</string>
     <string name="txt_contenido">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="txt_contenido_bigger">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+    Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
+        Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</string>
     <string name="txt_nombre">Nombre</string>
     <string name="txt_autor">Autor</string>
     <string name="txt_apellidos">Apellidos</string>
@@ -44,5 +48,6 @@
     <string name="txt_mensaje_guardar_fuente">Guardar fuente</string>
     <string name="txt_mensaje_tipo_fuente">Tipo de fuente</string>
     <string name="txt_mensaje_publicar">Publicar</string>
+    <string name="txt_mensaje_compartir">Compartir</string>
     <string name="txt_mensaje_ultimas_publicaciones">Últimas publicaciones</string>
 </resources>
