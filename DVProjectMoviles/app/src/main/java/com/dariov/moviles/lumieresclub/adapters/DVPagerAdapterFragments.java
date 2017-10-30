@@ -3,6 +3,10 @@ package com.dariov.moviles.lumieresclub.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
+
+import com.dariov.moviles.lumieresclub.fragments.DVFragmentListado;
+import com.dariov.moviles.lumieresclub.models.DVItemMenu;
 
 import java.util.LinkedList;
 
@@ -11,13 +15,13 @@ import java.util.LinkedList;
  */
 
 public class DVPagerAdapterFragments extends FragmentPagerAdapter {
-    private LinkedList<Fragment> _listaFrags;
+    private LinkedList<DVFragmentListado> _listaFrags;
 
     public DVPagerAdapterFragments(FragmentManager fm) {
         super(fm);
     }
 
-    public void setListAdapter(LinkedList<Fragment> lista) {
+    public void setListAdapter(LinkedList<DVFragmentListado> lista) {
         this._listaFrags = lista;
     }
 
@@ -36,6 +40,6 @@ public class DVPagerAdapterFragments extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "Page " + position;
+        return _listaFrags.get(position).title;
     }
 }

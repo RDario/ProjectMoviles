@@ -1,5 +1,8 @@
 package com.dariov.moviles.lumieresclub.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -7,31 +10,44 @@ import org.json.JSONObject;
  * Created by DarioValdes on 02/10/2017.
  */
 
-public class DVArticulo {
+public class DVArticulo implements Parcelable {
     private String _idArticulo;
     private String _titulo;
     private String _descripcion;
+    private String _textoCompleto;
     private String _seccion;
     private String _tipoArticulo;
     private String _fecha;
-    private String _nombreUsuario;
+    private String _hora;
+    private String _nombreAutor;
+    private String _idAutor;
     private String _urlImgArticulo;
-    private String _urlUsuario;
+    private String _urlImgUsuario;
+    private String _urlArticulo;
+    private String _urlPdf;
 
     public DVArticulo() {}
 
     public DVArticulo(JSONArray jsonArray) {
     }
 
-    public DVArticulo(JSONObject jsonArray) {
-    }
-
-    //Constructor de prueba
-    public DVArticulo(String titulo, String decripcion, String fecha, String nomUser) {
-        set_titulo(titulo);
-        set_descripcion(decripcion);
-        set_fecha(fecha);
-        set_nombreUsuario(nomUser);
+    public DVArticulo(JSONObject jsonObject) {
+        if (jsonObject != null) {
+            set_idArticulo(jsonObject.optString("identificador"));
+            set_titulo(jsonObject.optString("titulo"));
+            set_descripcion(jsonObject.optString("descripcion"));
+            set_textoCompleto(jsonObject.optString("texto"));
+            set_seccion(jsonObject.optString("seccion"));
+            set_tipoArticulo(jsonObject.optString("tipo"));
+            set_fecha(jsonObject.optString("fecha"));
+            set_hora(jsonObject.optString("hora"));
+            set_nombreAutor(jsonObject.optString("autor"));
+            set_idAutor(jsonObject.optString("id_autor"));
+            set_urlImgArticulo(jsonObject.optString("url_img_articulo"));
+            set_urlImgUsuario(jsonObject.optString("url_img_autor"));
+            set_urlArticulo(jsonObject.optString("url_publicacion"));
+            set_urlPdf(jsonObject.optString("url_pdf"));
+        }
     }
 
     public String get_idArticulo() {
@@ -82,12 +98,12 @@ public class DVArticulo {
         this._fecha = _fecha;
     }
 
-    public String get_nombreUsuario() {
-        return _nombreUsuario;
+    public String get_nombreAutor() {
+        return _nombreAutor;
     }
 
-    private void set_nombreUsuario(String _nombreUsuario) {
-        this._nombreUsuario = _nombreUsuario;
+    private void set_nombreAutor(String _nombreAutor) {
+        this._nombreAutor = _nombreAutor;
     }
 
     public String get_urlImgArticulo() {
@@ -98,11 +114,103 @@ public class DVArticulo {
         this._urlImgArticulo = _urlImgArticulo;
     }
 
-    public String get_urlUsuario() {
-        return _urlUsuario;
+    public String get_textoCompleto() {
+        return _textoCompleto;
     }
 
-    private void set_urlUsuario(String _urlUsuario) {
-        this._urlUsuario = _urlUsuario;
+    private void set_textoCompleto(String _textoCompleto) {
+        this._textoCompleto = _textoCompleto;
     }
+
+    public String get_hora() {
+        return _hora;
+    }
+
+    private void set_hora(String _hora) {
+        this._hora = _hora;
+    }
+
+    public String get_idAutor() {
+        return _idAutor;
+    }
+
+    private void set_idAutor(String _idAutor) {
+        this._idAutor = _idAutor;
+    }
+
+    public String get_urlArticulo() {
+        return _urlArticulo;
+    }
+
+    private void set_urlArticulo(String _urlArticulo) {
+        this._urlArticulo = _urlArticulo;
+    }
+
+    public String get_urlPdf() {
+        return _urlPdf;
+    }
+
+    private void set_urlPdf(String _urlPdf) {
+        this._urlPdf = _urlPdf;
+    }
+
+    public String get_urlImgUsuario() {
+        return _urlImgUsuario;
+    }
+
+    private void set_urlImgUsuario(String _urlImgUsuario) {
+        this._urlImgUsuario = _urlImgUsuario;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(_idArticulo);
+        parcel.writeString(_titulo);
+        parcel.writeString(_descripcion);
+        parcel.writeString(_textoCompleto);
+        parcel.writeString(_seccion);
+        parcel.writeString(_tipoArticulo);
+        parcel.writeString(_fecha);
+        parcel.writeString(_hora);
+        parcel.writeString(_nombreAutor);
+        parcel.writeString(_idAutor);
+        parcel.writeString(_urlImgArticulo);
+        parcel.writeString(_urlArticulo);
+        parcel.writeString(_urlPdf);
+        parcel.writeString(_urlImgUsuario);
+    }
+
+    protected DVArticulo(Parcel in) {
+        _idArticulo = in.readString();
+        _titulo = in.readString();
+        _descripcion = in.readString();
+        _textoCompleto = in.readString();
+        _seccion = in.readString();
+        _tipoArticulo = in.readString();
+        _fecha = in.readString();
+        _hora = in.readString();
+        _nombreAutor = in.readString();
+        _idAutor = in.readString();
+        _urlImgArticulo = in.readString();
+        _urlArticulo = in.readString();
+        _urlPdf = in.readString();
+        _urlImgUsuario = in.readString();
+    }
+
+    public static final Creator<DVArticulo> CREATOR = new Creator<DVArticulo>() {
+        @Override
+        public DVArticulo createFromParcel(Parcel in) {
+            return new DVArticulo(in);
+        }
+
+        @Override
+        public DVArticulo[] newArray(int size) {
+            return new DVArticulo[size];
+        }
+    };
 }

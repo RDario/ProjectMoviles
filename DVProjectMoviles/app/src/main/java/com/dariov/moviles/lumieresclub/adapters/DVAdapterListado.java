@@ -49,7 +49,7 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (holder instanceof ViewHolderArticuloFull) {
             ((ViewHolderArticuloFull) holder)._txtTitulo.setText(_listaArticulos.get(position).get_titulo());
             ((ViewHolderArticuloFull) holder)._txtDescripcion.setText(_listaArticulos.get(position).get_descripcion());
-            ((ViewHolderArticuloFull) holder)._txtNomUsuario.setText(_listaArticulos.get(position).get_nombreUsuario());
+            ((ViewHolderArticuloFull) holder)._txtNomUsuario.setText(_listaArticulos.get(position).get_nombreAutor());
             ((ViewHolderArticuloFull) holder)._txtFecha.setText(_listaArticulos.get(position).get_fecha());
 
             Picasso.with(((ViewHolderArticuloFull) holder)._imgArticulo.getContext()).
@@ -66,7 +66,7 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
                     });
 
             Picasso.with(((ViewHolderArticuloFull) holder)._imgUsuario.getContext()).
-                    load(_listaArticulos.get(position).get_urlUsuario()).
+                    load(_listaArticulos.get(position).get_urlImgUsuario()).
                     into(((ViewHolderArticuloFull) holder)._imgUsuario, new Callback() {
                         @Override
                         public void onSuccess() {

@@ -23,6 +23,8 @@ import android.widget.Toast;
 
 import com.dariov.moviles.lumieresclub.adapters.DVPagerAdapterFragments;
 import com.dariov.moviles.lumieresclub.fragments.DVFragmentListado;
+import com.dariov.moviles.lumieresclub.models.DVItemMenu;
+import com.dariov.moviles.lumieresclub.utilities.DVHiloDescarga;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -39,15 +41,22 @@ import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.net.URI;
 import java.util.Arrays;
 import java.util.LinkedList;
 
 public class DVMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener,
         FacebookCallback<LoginResult>, View.OnClickListener {
     private TextView _txtNomUser, _txtApeUser, _btnLoginFace;
+    private DVPagerAdapterFragments _pagerAdapterFragments;
+    private LinkedList<DVFragmentListado> _listaFrags;
     private TwitterLoginButton _twitterLoginButton;
     private AccessTokenTracker _accessTokenTracker;
     private CallbackManager callbackManager;
+    private TabLayout _tabLayoutMain;
     private ViewPager _viewPager;
     private ImageView _imgPerfil;
 
@@ -68,20 +77,8 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.floatActionBottom);
         floatingActionButton.setOnClickListener(this);
 
-        TabLayout _tabLayoutMain = (TabLayout) findViewById(R.id.tabLayoutMain);
-        _tabLayoutMain.addOnTabSelectedListener(this);
+        _tabLayoutMain = (TabLayout) findViewById(R.id.tabLayoutMain);
         _viewPager = (ViewPager) findViewById(R.id.viewPagerMain);
-        LinkedList<Fragment> _listaFrags = new LinkedList<>();
-        for (int i = 0; i < 3; i++) {
-            TabLayout.Tab tab = _tabLayoutMain.newTab();
-            tab.setText("Tab" + i);
-            _tabLayoutMain.addTab(tab);
-            _listaFrags.add(DVFragmentListado.newInstance(i, tab.getText() != null ? tab.getText().toString(): "Tab"));
-        }
-        DVPagerAdapterFragments _pagerAdapterFragments = new DVPagerAdapterFragments(getSupportFragmentManager());
-        _pagerAdapterFragments.setListAdapter(_listaFrags);
-        _viewPager.setAdapter(_pagerAdapterFragments);
-        _tabLayoutMain.setupWithViewPager(_viewPager);
 
         View loginHeader = navigationView.getHeaderView(0);
         _imgPerfil = loginHeader.findViewById(R.id.imgPerfil);
@@ -125,6 +122,35 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
                 Log.e(this.getClass().getSimpleName(), "-------Twitter-failure---> " + exception);
             }
         });
+        _tabLayoutMain.addOnTabSelectedListener(this);
+        _listaFrags = new LinkedList<>();
+        _pagerAdapterFragments = new DVPagerAdapterFragments(getSupportFragmentManager());
+        final TabLayout.OnTabSelectedListener tabSelectedListener = this;
+        DVHiloDescarga hiloDescarga = new DVHiloDescarga(new DVHiloDescarga.DVListenerHiloDescarga() {
+            @Override
+            public void onHiloDescargaSuccess(String res) {
+                try {
+                    JSONArray jsonArray = new JSONArray(res);
+                    if (jsonArray.length() > 0) {
+                        for (int i=0; i < jsonArray.length(); i++) {
+                            DVItemMenu itemMenu = new DVItemMenu(jsonArray.optJSONObject(i));
+                            _tabLayoutMain.addTab(_tabLayoutMain.newTab().setTag(itemMenu));
+                            _listaFrags.add(DVFragmentListado.newInstance(itemMenu));
+                            if (i == jsonArray.length()-1) {
+                                _pagerAdapterFragments.setListAdapter(_listaFrags);
+                                _viewPager.setAdapter(_pagerAdapterFragments);
+                                _viewPager.setOffscreenPageLimit(jsonArray.length());
+                                _tabLayoutMain.setupWithViewPager(_viewPager);
+                            }
+                        }
+                    }
+                } catch (JSONException e) {
+                    Log.e("ActivityMain", "-------JSON-Exception------> " + e);
+                    e.printStackTrace();
+                }
+            }
+        });
+        hiloDescarga.execute(URI.create("http://192.168.0.10:80/WebserviceProyectoMoviles/DVMenu.php"));
     }
 
     @Override
@@ -158,6 +184,13 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.itemConfig) {
+            Intent intent = new Intent(DVMainActivity.this, DVActivityConfig.class);
+            startActivity(intent);
+        } else if (id == R.id.itemNuevoArticulo) {
+            Intent intent = new Intent(DVMainActivity.this, DVActivityNuevoArticulo.class);
+            startActivity(intent);
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -165,17 +198,35 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        Log.e(getClass().getSimpleName(), " ------tab------> " + tab.getText());
+        DVFragmentListado fragmentListado = null;
+        Log.e("ActivityMain", " ------tab-reselected-----> " + tab.getText());
+        if (tab.getText() != null && !tab.getText().equals("")) {
+            switch (tab.getText().toString()) {
+                case "Portada":
+                    fragmentListado = (DVFragmentListado) _pagerAdapterFragments.getItem(tab.getPosition());
+                    break;
+                case "Sugerencias Semanal":
+                    fragmentListado = (DVFragmentListado) _pagerAdapterFragments.getItem(tab.getPosition());
+                    break;
+                case "Eventos":
+                    fragmentListado = (DVFragmentListado) _pagerAdapterFragments.getItem(tab.getPosition());
+                    break;
+                default:
+                    break;
+            }
+        }
+        if (fragmentListado != null) {
+            fragmentListado.DescargaInformacion(fragmentListado.url);
+        }
     }
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-
     }
 
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
-
+        Log.e("ActivityMain", " ------tab-reselected-----> " + tab.getText());
     }
 
     @Override

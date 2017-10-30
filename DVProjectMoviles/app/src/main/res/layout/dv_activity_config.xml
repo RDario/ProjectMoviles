@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blanco">
+
+    <TextView
+        android:id="@+id/txtPreguntaTitulos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="@string/txt_mensaje_guardar_titulos"
+        android:layout_margin="8dp"/>
+
+    <ToggleButton
+        android:id="@+id/toggleTitulos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="@string/txt_mensaje_si"
+        android:textOff="@string/txt_mensaje_no"
+        android:layout_below="@+id/txtPreguntaTitulos"
+        android:layout_margin="8dp"/>
+
+    <TextView
+        android:id="@+id/txtPreguntaIdiomas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:text="@string/txt_mensaje_idiomas"
+        android:layout_below="@+id/toggleTitulos"
+        android:layout_margin="8dp"/>
+
+    <LinearLayout
+        android:id="@+id/linearEspanol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/txtPreguntaIdiomas"
+        android:layout_gravity="center"
+        android:layout_margin="8dp">
+
+        <CheckBox
+            android:id="@+id/checkEspanol"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/txtEspanol"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textSize="15sp"
+            android:text="@string/txt_mensaje_espanol"
+            android:gravity="left"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearIngles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/linearEspanol"
+        android:layout_gravity="center"
+        android:layout_margin="8dp">
+
+        <CheckBox
+            android:id="@+id/checkIngles"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/txtIngles"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:textSize="15sp"
+            android:text="@string/txt_mensaje_ingles"
+            android:gravity="left"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_mensaje_guardar"
+        android:layout_below="@+id/linearIngles"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"/>
+</RelativeLayout>

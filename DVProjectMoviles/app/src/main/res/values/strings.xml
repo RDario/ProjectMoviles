@@ -21,6 +21,16 @@
     <string name="txt_mensaje_texto_poema">En los Campos de Flandes donde crecen las amapolas…</string>
     <string name="txt_mensaje_texto_poema_fuente">Poema En los Campos de Flandes</string>
     <string name="txt_mensaje_mas_sobre_autor">Más sobre el autor</string>
+    <string name="txt_mensaje_config">Configuración</string>
+    <string name="txt_mensaje_nuevo_articulo_menu">Nuevo artículo</string>
+    <string name="txt_mensaje_mas_acciones">Más acciones</string>
+    <string name="txt_mensaje_guardar_titulos">¿Deseas guardar títulos de autores, libros etc.?</string>
+    <string name="txt_mensaje_idiomas">Seleccione el idioma que desee</string>
+    <string name="txt_mensaje_espanol">Español</string>
+    <string name="txt_mensaje_ingles">Inglés</string>
+    <string name="txt_mensaje_si">Sí</string>
+    <string name="txt_mensaje_no">No</string>
+    <string name="txt_mensaje_guardar">Guardar</string>
 
     <!-- Test/Debug Strings -->
     <string name="txt_placeholder">Placeholder App</string>

@@ -77,7 +77,6 @@ public class DVHiloDescarga extends AsyncTask<URI, Integer, String> {
 
     protected void onPostExecute(String res) {
         super.onPostExecute(res);
-        Log.e(this.getClass().getSimpleName(), "---------onPostExecute------>>> " + res);
         _listenerHiloDescarga.onHiloDescargaSuccess(res);
     }
 
