@@ -150,7 +150,7 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
                 }
             }
         });
-        hiloDescarga.execute(URI.create("http://192.168.0.10:80/WebserviceProyectoMoviles/DVMenu.php"));
+        hiloDescarga.execute(URI.create("http://www.elevation.com.mx/pages/pruebas/moviles/DVMenu.php"));
     }
 
     @Override

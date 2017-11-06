@@ -71,5 +71,8 @@ public class DVActivityConfig extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
+        if (view.getId() == R.id.btnGuardar) {
+
+        }
     }
 }

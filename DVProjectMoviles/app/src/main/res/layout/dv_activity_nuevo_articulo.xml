@@ -135,24 +135,6 @@
                     android:inputType="textMultiLine"
                     android:hint="@string/txt_mensaje_nuevo_autor"
                     android:textSize="15sp" />
-
-                <CheckBox
-                    android:id="@+id/checkboxAutor"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/txtGuardarAutor"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/txt_mensaje_guardar_autor"
-                    android:textSize="12sp"
-                    android:gravity="center"
-                    android:layout_gravity="center"/>
             </LinearLayout>
 
             <TextView
@@ -216,24 +198,6 @@
                     android:inputType="text"
                     android:hint="@string/txt_mensaje_texto_poema_fuente"
                     android:textSize="14sp" />
-
-                <CheckBox
-                    android:id="@+id/checkboxFuente"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_gravity="center"/>
-
-                <TextView
-                    android:id="@+id/txtGuardarFuente"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/txt_mensaje_guardar_fuente"
-                    android:textSize="12sp"
-                    android:gravity="center"
-                    android:layout_gravity="center"/>
             </LinearLayout>
 
             <TextView
