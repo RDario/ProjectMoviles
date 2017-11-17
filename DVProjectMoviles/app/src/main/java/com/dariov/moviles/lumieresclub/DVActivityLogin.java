@@ -1,6 +1,7 @@
 package com.dariov.moviles.lumieresclub;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -99,6 +100,5 @@ public class DVActivityLogin extends AppCompatActivity implements FacebookCallba
 
     @Override
     public void onError(FacebookException error) {
-
     }
 }

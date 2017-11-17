@@ -40,15 +40,14 @@ public class DVSQLDataBase extends SQLiteOpenHelper {
     private static final String TABLE_ARTICULO_CREATE = "create table "
             + TABLE_ARTICULO
             + "(" + COLUMN_ID_ARTICULO + " integer primary key autoincrement, "
-            + REQUEST_CODE + " integer not null, "
-            + COLUMN_TITULO + " text not null, "
-            + COLUMN_TEXTO + " text not null, "
-            + COLUMN_AUTOR + " text not null, "
-            + COLUMN_FUENTE + " text not null, "
-            + COLUMN_TIPO_FUENTE + " text not null, "
-            + COLUMN_IS_PUBLICA + " text not null, "
-            + COLUMN_NOMBRE_USUARIO + " text not null, "
-            + COLUMN_ID_USUARIO + " int not null);";
+            + COLUMN_TITULO + " text, "
+            + COLUMN_TEXTO + " text, "
+            + COLUMN_AUTOR + " text, "
+            + COLUMN_FUENTE + " text, "
+            + COLUMN_TIPO_FUENTE + " text, "
+            + COLUMN_IS_PUBLICA + " text, "
+            + COLUMN_NOMBRE_USUARIO + " text, "
+            + COLUMN_ID_USUARIO + " int);";
 
     public DVSQLDataBase(Context context, String s, Object o, int i) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

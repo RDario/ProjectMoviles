@@ -3,10 +3,12 @@ package com.dariov.moviles.lumieresclub;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,8 +25,8 @@ import com.dariov.moviles.lumieresclub.utilities.DVSQLDataBase;
  */
 
 public class DVActivityNuevoArticulo extends AppCompatActivity implements View.OnClickListener {
+    private String[] _arrayFuentes = {"POEMA", "LIBRO", "CANCION", "MANUSCRITO", "CITA TEXTUAL"};
     private EditText _editTitulo, _editTexto, _editAutor, _editFuente;
-    private String[] _arrayFuentes = {"Poema", "Libro", "Manuscrito"};
     private Spinner _spinnerAutor, _spinnerFuente, _spinnerTipo;
     private String[] _arrayOtros = {"Selecciona uno..."};
     private CheckBox _checkboxAutor,_checkboxFuente;
@@ -45,6 +47,8 @@ public class DVActivityNuevoArticulo extends AppCompatActivity implements View.O
         _btnGuardar = (Button) findViewById(R.id.btnGuardar);
         _btnPublicar = (Button) findViewById(R.id.btnPublicar);
         _txtHeader = (TextView) findViewById(R.id.txtHeader);
+        _btnGuardar.setOnClickListener(this);
+        _btnPublicar.setOnClickListener(this);
 
         SharedPreferences sharedPref = getSharedPreferences("prefeArticulo", Context.MODE_PRIVATE);
         String prefeAutor = sharedPref.getString("prefeAutor", "");
@@ -56,12 +60,13 @@ public class DVActivityNuevoArticulo extends AppCompatActivity implements View.O
         _spinnerAutor.setAdapter(arrayAdapterAutor);
         ArrayAdapter<String> arrayAdapterFuente = new ArrayAdapter<>(_spinnerFuente.getContext(), android.R.layout.simple_expandable_list_item_1, _arrayOtros);
         _spinnerFuente.setAdapter(arrayAdapterFuente);
+        consulta();
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnGuardar) {
-            DVSQLDataBase _sqlitehelper = new DVSQLDataBase(view.getContext(),"database1Minuto.db", null, 1);
+            DVSQLDataBase _sqlitehelper = new DVSQLDataBase(view.getContext(),"databaseMoviles.db", null, 1);
             SQLiteDatabase database = _sqlitehelper.getWritableDatabase();
             ContentValues _registro =  new ContentValues();
             String txtAutor = "";
@@ -86,10 +91,26 @@ public class DVActivityNuevoArticulo extends AppCompatActivity implements View.O
                 _registro.put(DVSQLDataBase.COLUMN_FUENTE, txtFuente);
                 _registro.put(DVSQLDataBase.COLUMN_TIPO_FUENTE, txtTipo);
                 database.insert(DVSQLDataBase.TABLE_ARTICULO,null, _registro);
+                Toast.makeText(view.getContext(), "Se guardó la información en el borrador", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(view.getContext(), "Rellene todos los campos", Toast.LENGTH_LONG).show();
             }
         } else if (view.getId() == R.id.btnPublicar) {
         }
+    }
+
+    public void consulta() {
+        DVSQLDataBase admin = new DVSQLDataBase(this, "databaseMoviles.db", null, 1);
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        Cursor fila = bd.rawQuery("SELECT * FROM articulo", null);
+        if (fila.moveToFirst()) {
+            Log.e("SQLite", "columna_uno---> " + fila.getString(0));
+            Log.e("SQLite", "columna_dos---> " + fila.getString(1));
+            Log.e("SQLite", "columna_tres--> " + fila.getString(2));
+        } else {
+            Toast.makeText(this, "No existe registro puñetas", Toast.LENGTH_SHORT).show();
+        }
+        fila.close();
+        bd.close();
     }
 }

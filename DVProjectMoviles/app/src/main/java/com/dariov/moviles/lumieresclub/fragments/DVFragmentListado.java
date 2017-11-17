@@ -46,6 +46,14 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener,
         return fragmentListadoSimple;
     }
 
+    public static DVFragmentListado newInstanceFromPerfil(String idUsuario) {
+        DVFragmentListado fragmentListadoSimple = new DVFragmentListado();
+        Bundle args = new Bundle();
+        args.putString("disId", idUsuario);
+        fragmentListadoSimple.setArguments(args);
+        return fragmentListadoSimple;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,6 +113,7 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener,
                         }
                         _adapterListado.setListaArticulo(_listaMain);
                         _adapterListado.setOnClickListener(this);
+                        _adapterListado.setContext(getActivity());
                         LinearLayoutManager llm = new LinearLayoutManager(_listView.getContext());
                         _listView.setLayoutManager(llm);
                         _listView.setAdapter(_adapterListado);

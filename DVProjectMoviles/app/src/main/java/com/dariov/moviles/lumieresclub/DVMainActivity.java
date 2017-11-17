@@ -73,10 +73,8 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.floatActionBottom);
         floatingActionButton.setOnClickListener(this);
-
         _tabLayoutMain = (TabLayout) findViewById(R.id.tabLayoutMain);
         _viewPager = (ViewPager) findViewById(R.id.viewPagerMain);
 
@@ -125,7 +123,6 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         _tabLayoutMain.addOnTabSelectedListener(this);
         _listaFrags = new LinkedList<>();
         _pagerAdapterFragments = new DVPagerAdapterFragments(getSupportFragmentManager());
-        final TabLayout.OnTabSelectedListener tabSelectedListener = this;
         DVHiloDescarga hiloDescarga = new DVHiloDescarga(new DVHiloDescarga.DVListenerHiloDescarga() {
             @Override
             public void onHiloDescargaSuccess(String res) {
