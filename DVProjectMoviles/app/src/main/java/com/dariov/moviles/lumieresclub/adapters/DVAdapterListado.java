@@ -70,7 +70,7 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
                     }
                 case "POEMA":
                     return 3;
-                case "CITAS":
+                case "CITA TEXTUAL":
                     return 4;
                 case "MANUSCRITO":
                     return 5;

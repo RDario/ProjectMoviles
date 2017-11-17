@@ -19,6 +19,10 @@
     <string name="txt_mensaje_nuevo_articulo">¡Escribe y comparte tu lectura!</string>
     <string name="txt_mensaje_titulo_poema">En los Campos de Flandes</string>
     <string name="txt_mensaje_texto_poema">En los Campos de Flandes donde crecen las amapolas…</string>
+    <string name="txt_mensaje_texto_completo_poema">En los Campos de Flandes donde crecen las amapola,
+        fila tras fila,
+        señalan nuesra tumba…
+    </string>
     <string name="txt_mensaje_texto_poema_fuente">Poema En los Campos de Flandes</string>
     <string name="txt_mensaje_mas_sobre_autor">Más sobre el autor</string>
     <string name="txt_mensaje_config">Configuración</string>
@@ -31,12 +35,14 @@
     <string name="txt_mensaje_si">Sí</string>
     <string name="txt_mensaje_no">No</string>
     <string name="txt_mensaje_guardar">Guardar</string>
+    <string name="txt_mensaje_borradores">No tienes borradores guardados</string>
 
     <!-- Test/Debug Strings -->
     <string name="txt_placeholder">Placeholder App</string>
     <string name="txt_titulo">Titulo</string>
     <string name="txt_subtitulo">Subtitulo</string>
     <string name="txt_texto">Texto</string>
+    <string name="txt_descripcion">Descripción</string>
     <string name="txt_contenido">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
     <string name="txt_contenido_bigger">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.

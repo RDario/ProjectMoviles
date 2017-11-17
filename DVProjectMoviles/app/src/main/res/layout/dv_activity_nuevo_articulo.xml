@@ -49,10 +49,34 @@
                 android:layout_marginBottom="10dp"/>
 
             <TextView
-                android:id="@+id/txtTexto"
+                android:id="@+id/txtDescripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editTitulo"
+                android:textSize="14sp"
+                android:textColor="@color/negro"
+                android:text="@string/txt_descripcion"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="0dp"/>
+
+            <EditText
+                android:id="@+id/editDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/relativeBtnGuardar"
+                android:layout_alignRight="@+id/relativeBtnGuardar"
+                android:layout_below="@+id/txtDescripcion"
+                android:hint="@string/txt_mensaje_texto_poema"
+                android:inputType="textAutoComplete"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/txtTexto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editDescripcion"
                 android:textSize="14sp"
                 android:textColor="@color/negro"
                 android:text="@string/txt_texto"
@@ -67,8 +91,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="textMultiLine"
                 android:layout_below="@+id/txtTexto"
-                android:textSize="16sp"
-                android:hint="@string/txt_mensaje_texto_poema"
+                android:textSize="15sp"
+                android:hint="@string/txt_mensaje_texto_completo_poema"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
@@ -217,7 +241,6 @@
                 android:id="@+id/spinnerTipo"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:prompt="@string/txt_seleccionar_tipo"
                 android:layout_below="@+id/txtTipo"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"

@@ -29,25 +29,35 @@ public class DVSQLDataBase extends SQLiteOpenHelper {
     public static final String TABLE_ARTICULO = "articulo";
     public static final String COLUMN_ID_ARTICULO = "idArticulo";
     public static final String COLUMN_TITULO = "titulo";
+    public static final String COLUMN_DESCRIPCION = "descripcion";
     public static final String COLUMN_TEXTO = "texto";
-    public static final String COLUMN_AUTOR = "autor";
+    public static final String COLUMN_SECCION = "seccion";
+    public static final String COLUMN_TIPO_FUENTE = "tipoArticulo";
     public static final String COLUMN_FUENTE = "fuente";
-    public static final String COLUMN_TIPO_FUENTE = "tipoFuente";
-    public static final String COLUMN_NOMBRE_USUARIO = "nombreUsuario";
-    public static final String COLUMN_IS_PUBLICA = "isPublica";
+    public static final String COLUMN_FECHA = "fecha";
+    public static final String COLUMN_HORA = "hora";
+    public static final String COLUMN_AUTOR = "autor";
     public static final String COLUMN_ID_USUARIO = "idUsuario";
+    public static final String COLUMN_NOMBRE_USUARIO = "nombreUsuario";
+    public static final String COLUMN_URL_IMG_USUARIO = "urlImgUsuario";
+    public static final String COLUMN_URL_IMG_ARTICULO = "urlImgArticulo";
 
     private static final String TABLE_ARTICULO_CREATE = "create table "
             + TABLE_ARTICULO
             + "(" + COLUMN_ID_ARTICULO + " integer primary key autoincrement, "
             + COLUMN_TITULO + " text, "
+            + COLUMN_DESCRIPCION + " text, "
             + COLUMN_TEXTO + " text, "
-            + COLUMN_AUTOR + " text, "
-            + COLUMN_FUENTE + " text, "
+            + COLUMN_SECCION + " text, "
             + COLUMN_TIPO_FUENTE + " text, "
-            + COLUMN_IS_PUBLICA + " text, "
+            + COLUMN_FUENTE + " text, "
+            + COLUMN_FECHA + " text, "
+            + COLUMN_HORA + " text, "
+            + COLUMN_AUTOR + " text, "
             + COLUMN_NOMBRE_USUARIO + " text, "
-            + COLUMN_ID_USUARIO + " int);";
+            + COLUMN_ID_USUARIO + " text, "
+            + COLUMN_URL_IMG_USUARIO + " text, "
+            + COLUMN_URL_IMG_ARTICULO + " text);";
 
     public DVSQLDataBase(Context context, String s, Object o, int i) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

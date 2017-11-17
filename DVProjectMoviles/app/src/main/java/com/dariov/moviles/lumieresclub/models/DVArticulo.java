@@ -17,6 +17,7 @@ public class DVArticulo implements Parcelable {
     private String _textoCompleto;
     private String _seccion;
     private String _tipoArticulo;
+    private String _fuente;
     private String _fecha;
     private String _hora;
     private String _nombreAutor;
@@ -51,7 +52,7 @@ public class DVArticulo implements Parcelable {
     }
 
     public DVArticulo(String ide, String title, String summary, String textComplete,
-                      String secc, String type, String date, String datetime, String nomAuthor,
+                      String secc, String type, String source, String date, String datetime, String nomAuthor,
                       String idUser, String user, String urlArticle, String urlImgUser) {
             set_idArticulo(ide);
             set_titulo(title);
@@ -59,6 +60,7 @@ public class DVArticulo implements Parcelable {
             set_textoCompleto(textComplete);
             set_seccion(secc);
             set_tipoArticulo(type);
+            set_fuente(source);
             set_fecha(date);
             set_hora(datetime);
             set_nombreAutor(nomAuthor);
@@ -66,6 +68,24 @@ public class DVArticulo implements Parcelable {
             set_usuario(user);
             set_urlImgArticulo(urlArticle);
             set_urlImgUsuario("http://www.elevation.com.mx/pages/pruebas/moviles/images/placeholder_user.jpg");
+    }
+
+    public DVArticulo(String ide, String title, String summary, String textComplete,
+                      String secc, String type, String date, String datetime, String nomAuthor,
+                      String idUser, String user, String urlArticle, String urlImgUser) {
+        set_idArticulo(ide);
+        set_titulo(title);
+        set_descripcion(summary);
+        set_textoCompleto(textComplete);
+        set_seccion(secc);
+        set_tipoArticulo(type);
+        set_fecha(date);
+        set_hora(datetime);
+        set_nombreAutor(nomAuthor);
+        set_idAutor(idUser);
+        set_usuario(user);
+        set_urlImgArticulo(urlArticle);
+        set_urlImgUsuario("http://www.elevation.com.mx/pages/pruebas/moviles/images/placeholder_user.jpg");
     }
 
     public String get_idArticulo() {
@@ -188,6 +208,14 @@ public class DVArticulo implements Parcelable {
         this._usuario = _usuario;
     }
 
+    public String get_fuente() {
+        return _fuente;
+    }
+
+    private void set_fuente(String _fuente) {
+        this._fuente = _fuente;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -201,6 +229,7 @@ public class DVArticulo implements Parcelable {
         parcel.writeString(_textoCompleto);
         parcel.writeString(_seccion);
         parcel.writeString(_tipoArticulo);
+        parcel.writeString(_fuente);
         parcel.writeString(_fecha);
         parcel.writeString(_hora);
         parcel.writeString(_nombreAutor);
@@ -218,6 +247,7 @@ public class DVArticulo implements Parcelable {
         _textoCompleto = in.readString();
         _seccion = in.readString();
         _tipoArticulo = in.readString();
+        _fuente = in.readString();
         _fecha = in.readString();
         _hora = in.readString();
         _nombreAutor = in.readString();
