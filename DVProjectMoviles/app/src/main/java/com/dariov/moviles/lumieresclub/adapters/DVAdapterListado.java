@@ -161,6 +161,7 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
                             }
                         });
             }
+            ((ViewHolderArticuloFull) holder)._cardView.setTag(_listaArticulos.get(position));
             ((ViewHolderArticuloFull) holder)._cardView.setOnClickListener(_clickListener);
         } else if (holder instanceof ViewHolderArticulo) {
             ((ViewHolderArticulo) holder)._txtTitulo.setText(_listaArticulos.get(position).get_titulo());
@@ -169,7 +170,10 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((ViewHolderArticulo) holder)._txtFecha.setText(_listaArticulos.get(position).get_fecha());
             ((ViewHolderArticulo) holder)._txtTitulo.setTypeface(_fuenteLibro);
             ((ViewHolderArticulo) holder)._txtDescripcion.setTypeface(_fuenteLibro);
+            ((ViewHolderArticulo) holder)._txtTitulo.setTag(_listaArticulos.get(position));
+            ((ViewHolderArticulo) holder)._txtDescripcion.setTag(_listaArticulos.get(position));
             ((ViewHolderArticulo) holder)._txtTitulo.setOnClickListener(_clickListener);
+            ((ViewHolderArticulo) holder)._txtDescripcion.setOnClickListener(_clickListener);
 
             if (_listaArticulos.get(position).get_urlImgUsuario() != null && !_listaArticulos.get(position).get_urlImgUsuario().equals("")) {
                 Picasso.with(((ViewHolderArticulo) holder)._imgUsuario.getContext()).
@@ -200,13 +204,17 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
 
         } else if (holder instanceof ViewHolderPoesia) {
+            Log.e("DVDetalleArticulo", "-----get_usuario-lista----> " + _listaArticulos.get(position).get_usuario());
             ((ViewHolderPoesia) holder)._txtTitulo.setText(_listaArticulos.get(position).get_nombreAutor());
             ((ViewHolderPoesia) holder)._txtDescripcion.setText("'"+_listaArticulos.get(position).get_descripcion()+"'");
             ((ViewHolderPoesia) holder)._txtNomUsuario.setText(_listaArticulos.get(position).get_usuario());
             ((ViewHolderPoesia) holder)._txtFecha.setText(_listaArticulos.get(position).get_fecha());
             ((ViewHolderPoesia) holder)._txtTitulo.setTypeface(_fuentePoesia);
             ((ViewHolderPoesia) holder)._txtDescripcion.setTypeface(_fuentePoesia);
+            ((ViewHolderPoesia) holder)._txtTitulo.setTag(_listaArticulos.get(position));
+            ((ViewHolderPoesia) holder)._txtDescripcion.setTag(_listaArticulos.get(position));
             ((ViewHolderPoesia) holder)._txtTitulo.setOnClickListener(_clickListener);
+            ((ViewHolderPoesia) holder)._txtDescripcion.setOnClickListener(_clickListener);
 
             if (_listaArticulos.get(position).get_urlImgUsuario() != null && !_listaArticulos.get(position).get_urlImgUsuario().equals("")) {
                 Picasso.with(((ViewHolderPoesia) holder)._imgUsuario.getContext()).

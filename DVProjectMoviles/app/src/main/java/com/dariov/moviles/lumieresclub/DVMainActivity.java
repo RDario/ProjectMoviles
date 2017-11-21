@@ -23,7 +23,10 @@ import android.widget.Toast;
 
 import com.dariov.moviles.lumieresclub.adapters.DVPagerAdapterFragments;
 import com.dariov.moviles.lumieresclub.fragments.DVFragmentListado;
+import com.dariov.moviles.lumieresclub.fragments.DVLoginSingleton;
+import com.dariov.moviles.lumieresclub.interfaces.DVListenerActualizarFoto;
 import com.dariov.moviles.lumieresclub.models.DVItemMenu;
+import com.dariov.moviles.lumieresclub.models.DVUsuario;
 import com.dariov.moviles.lumieresclub.utilities.DVHiloDescarga;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -49,21 +52,27 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 public class DVMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener,
-        FacebookCallback<LoginResult>, View.OnClickListener {
-    private TextView _txtNomUser, _txtApeUser, _btnLoginFace;
+        FacebookCallback<LoginResult>, View.OnClickListener, DVListenerActualizarFoto {
+    private TextView _txtNomUser, _btnLoginFace;
     private DVPagerAdapterFragments _pagerAdapterFragments;
     private LinkedList<DVFragmentListado> _listaFrags;
     private TwitterLoginButton _twitterLoginButton;
     private AccessTokenTracker _accessTokenTracker;
+    private TextView _txtSignout, _txtSignIn;
     private CallbackManager callbackManager;
     private TabLayout _tabLayoutMain;
+    private DVUsuario _usuarioLog;
     private ViewPager _viewPager;
     private ImageView _imgPerfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getIntent().getExtras() != null) {
+            _usuarioLog = getIntent().getExtras().getParcelable("dvusuario");
+        }
         Twitter.initialize(this);
+        DVLoginSingleton._listenerActualizarFoto = this;
         setContentView(R.layout.activity_dvmain);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,13 +89,15 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
 
         View loginHeader = navigationView.getHeaderView(0);
         _imgPerfil = loginHeader.findViewById(R.id.imgPerfil);
+        _txtSignIn = loginHeader.findViewById(R.id.txtSignIn);
         _txtNomUser = loginHeader.findViewById(R.id.txtNomUser);
-        _txtApeUser = loginHeader.findViewById(R.id.txtApeUser);
+        _txtSignout = loginHeader.findViewById(R.id.txtSignOut);
         _btnLoginFace = loginHeader.findViewById(R.id.btnLoginFace);
         _twitterLoginButton = loginHeader.findViewById(R.id.btnLoginTwitter);
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, this);
         _btnLoginFace.setOnClickListener(this);
+        _txtSignout.setOnClickListener(this);
         _imgPerfil.setOnClickListener(this);
 
         _accessTokenTracker = new AccessTokenTracker() {
@@ -113,6 +124,8 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
             @Override
             public void success(Result<TwitterSession> result) {
                 Log.e(this.getClass().getSimpleName(), "-------Twitter-succes---> " + result);
+                _txtSignIn.setVisibility(View.GONE);
+                _txtSignout.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -148,6 +161,32 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
             }
         });
         hiloDescarga.execute(URI.create("http://www.elevation.com.mx/pages/pruebas/moviles/DVMenu.php"));
+
+        if (_usuarioLog != null) {
+            DVLoginSingleton.setDatos(
+                    _usuarioLog.get_nombre(),
+                    _usuarioLog.get_correo(),
+                    _usuarioLog.get_contrasenia(),
+                    _usuarioLog.get_urlImg());
+            _txtNomUser.setText(getResources().getString(R.string.txt_mensaje_bienvenido) + "\n " + _usuarioLog.get_nombre() + " " + _usuarioLog.get_apellidoP());
+            _txtSignIn.setVisibility(View.GONE);
+            _txtSignout.setVisibility(View.VISIBLE);
+            if (_usuarioLog.get_urlImg() != null && !_usuarioLog.get_urlImg().equals("")) {
+                Picasso.with(_imgPerfil.getContext()).
+                        load(_usuarioLog.get_urlImg()).
+                        into(_imgPerfil, new Callback() {
+                            @Override
+                            public void onSuccess() {
+                                Log.e("DVActivityMain", " ----------onSuccess------> ");
+                            }
+
+                            @Override
+                            public void onError() {
+                                Log.e("DVActivityMain", " ----------OnError------> ");
+                            }
+                        });
+            }
+        }
     }
 
     @Override
@@ -196,7 +235,6 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         DVFragmentListado fragmentListado = null;
-        Log.e("ActivityMain", " ------tab-reselected-----> " + tab.getText());
         if (tab.getText() != null && !tab.getText().equals("")) {
             switch (tab.getText().toString()) {
                 case "Portada":
@@ -234,6 +272,8 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
                     Profile.getCurrentProfile().getMiddleName() + " " +Profile.getCurrentProfile().getMiddleName(),
                     Profile.getCurrentProfile().getProfilePictureUri(100, 100));
             _twitterLoginButton.setVisibility(View.GONE);
+            _txtSignIn.setVisibility(View.GONE);
+            _txtSignout.setVisibility(View.VISIBLE);
         }
     }
 
@@ -273,12 +313,30 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         } else if (view.getId() == R.id.imgPerfil){
             Intent intent = new Intent(DVMainActivity.this, DVActivityPerfil.class);
             startActivity(intent);
+        } else if (view.getId() == R.id.txtSignOut) {
+            _txtSignIn.setVisibility(View.GONE);
+            _txtSignout.setVisibility(View.VISIBLE);
+            DVLoginSingleton.setDatos("", "","","");
+            _txtNomUser.setText("");
+            LoginManager.getInstance().logOut();
+            Picasso.with(_imgPerfil.getContext()).
+                    load(R.drawable.profile_pic_placeholder).
+                    into(_imgPerfil, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Log.e("Picasso", " ---------onSuccess-----Perfil--->");
+                        }
+
+                        @Override
+                        public void onError() {
+                            Log.e("Picasso", " ---------onError-----Perfil--->");
+                        }
+                    });
         }
     }
 
     private void setDatosLoginFacebook(String nombre, String apellidos, Uri urlImg) {
         _txtNomUser.setText(nombre);
-        _txtApeUser.setText(apellidos);
         Picasso.with(_imgPerfil.getContext()).
                 load(urlImg).
                 placeholder(R.drawable.profile_pic_placeholder).
@@ -297,7 +355,6 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
 
     private void setDatosLoginFacebook(String nombre, String apellidos, int intResource) {
         _txtNomUser.setText(nombre);
-        _txtApeUser.setText(apellidos);
         Picasso.with(_imgPerfil.getContext()).
                 load(intResource).
                 placeholder(R.drawable.profile_pic_placeholder).
@@ -312,5 +369,11 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
                         Log.e("Picasso", " ---------onError-----Perfil--->");
                     }
                 });
+    }
+
+    @Override
+    public void actualizarFoto() {
+        Log.e("DVActivityMain", " ---------Llegoaqui-actualizarfoto-------->");
+        _imgPerfil.setImageBitmap(DVLoginSingleton._bitmapImg);
     }
 }

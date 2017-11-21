@@ -14,56 +14,65 @@
     <string name="txt_twitter_logout">Log out</string>
 
     <!-- Strings de producción -->
-    <string name="txt_mensaje_login">¡Inicia sesión en tus red social favorita para compartir contenido!</string>
-    <string name="txt_mensaje_btn_login">Continuar sin iniciar sesión</string>
-    <string name="txt_mensaje_nuevo_articulo">¡Escribe y comparte tu lectura!</string>
-    <string name="txt_mensaje_titulo_poema">En los Campos de Flandes</string>
-    <string name="txt_mensaje_texto_poema">En los Campos de Flandes donde crecen las amapolas…</string>
-    <string name="txt_mensaje_texto_completo_poema">En los Campos de Flandes donde crecen las amapola,
-        fila tras fila,
-        señalan nuesra tumba…
+    <string name="txt_mensaje_login">Sign in your favourite social media for sharing!</string>
+    <string name="txt_mensaje_btn_login">Start without sign in</string>
+    <string name="txt_mensaje_btn_login_in">Sign in with your account</string>
+    <string name="txt_mensaje_nuevo_articulo">Write y share your readings and stories!</string>
+    <string name="txt_mensaje_titulo_poema">In Flandes Fields</string>
+    <string name="txt_mensaje_texto_poema">In Flandes Flieds the poppies flow…</string>
+    <string name="txt_mensaje_texto_completo_poema">In Flandes Flieds the poppies flow,
+        Between the crosses, row on row…
     </string>
-    <string name="txt_mensaje_texto_poema_fuente">Poema En los Campos de Flandes</string>
-    <string name="txt_mensaje_mas_sobre_autor">Más sobre el autor</string>
-    <string name="txt_mensaje_config">Configuración</string>
-    <string name="txt_mensaje_nuevo_articulo_menu">Nuevo artículo</string>
-    <string name="txt_mensaje_mas_acciones">Más acciones</string>
-    <string name="txt_mensaje_guardar_titulos">¿Deseas guardar títulos de autores, libros etc.?</string>
-    <string name="txt_mensaje_idiomas">Seleccione el idioma que desee</string>
-    <string name="txt_mensaje_espanol">Español</string>
-    <string name="txt_mensaje_ingles">Inglés</string>
-    <string name="txt_mensaje_si">Sí</string>
+    <string name="txt_mensaje_texto_poema_fuente">In Flandes Fields Poeam</string>
+    <string name="txt_mensaje_mas_sobre_autor">More about the author</string>
+    <string name="txt_mensaje_config">Settings</string>
+    <string name="txt_mensaje_nuevo_articulo_menu">New story</string>
+    <string name="txt_mensaje_mas_acciones">More actions</string>
+    <string name="txt_mensaje_guardar_titulos">¿Do you wish save author\'s names, titles from books etc?</string>
+    <string name="txt_mensaje_idiomas">Select language as you wish</string>
+    <string name="txt_mensaje_espanol">Spanish</string>
+    <string name="txt_mensaje_ingles">English</string>
+    <string name="txt_mensaje_si">Yes</string>
     <string name="txt_mensaje_no">No</string>
-    <string name="txt_mensaje_guardar">Guardar</string>
-    <string name="txt_mensaje_borradores">No tienes borradores guardados</string>
+    <string name="txt_mensaje_guardar">Save</string>
+    <string name="txt_mensaje_borradores">You don\'t have saved drafts</string>
+    <string name="txt_mensaje_by_autor">Write for: </string>
+    <string name="txt_mensaje_by_fuente">Source: </string>
+    <string name="txt_mensaje_email">Example: someguy@hotmail.com</string>
+    <string name="txt_mensaje_signin">Sign in</string>
+    <string name="txt_mensaje_emailtxt">E-mail</string>
+    <string name="txt_mensaje_password">Password</string>
+    <string name="txt_mensaje_bienvenido">Welcome</string>
+    <string name="txt_mensaje_signout">Sign out</string>
+    <string name="txt_mensaje_drafts">Drafts</string>
 
     <!-- Test/Debug Strings -->
     <string name="txt_placeholder">Placeholder App</string>
-    <string name="txt_titulo">Titulo</string>
-    <string name="txt_subtitulo">Subtitulo</string>
-    <string name="txt_texto">Texto</string>
-    <string name="txt_descripcion">Descripción</string>
+    <string name="txt_titulo">Title</string>
+    <string name="txt_subtitulo">Subtitle</string>
+    <string name="txt_texto">Text</string>
+    <string name="txt_descripcion">Summary</string>
     <string name="txt_contenido">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
     <string name="txt_contenido_bigger">"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
     Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.
         Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</string>
-    <string name="txt_nombre">Nombre</string>
-    <string name="txt_autor">Autor</string>
-    <string name="txt_apellidos">Apellidos</string>
-    <string name="txt_edad">Edad</string>
-    <string name="txt_telefono">Telefono</string>
-    <string name="txt_seleccionar_autor">Selecciona autor</string>
-    <string name="txt_seleccionar_fuente">Seleccionar fuente</string>
-    <string name="txt_seleccionar_tipo">Seleccionar tipo</string>
-    <string name="txt_mensaje_autor">Elige un autor que hayas guardado</string>
-    <string name="txt_mensaje_nuevo_autor">Nuevo autor</string>
-    <string name="txt_mensaje_guardar_autor">Guardar autor</string>
-    <string name="txt_mensaje_guardar_borrador">Guardar en borrador</string>
-    <string name="txt_mensaje_extraido">Texto extraído de</string>
-    <string name="txt_mensaje_fuente">Elige una fuente que hayas guardado</string>
-    <string name="txt_mensaje_guardar_fuente">Guardar fuente</string>
-    <string name="txt_mensaje_tipo_fuente">Tipo de fuente</string>
-    <string name="txt_mensaje_publicar">Publicar</string>
-    <string name="txt_mensaje_compartir">Compartir</string>
-    <string name="txt_mensaje_ultimas_publicaciones">Últimas publicaciones</string>
+    <string name="txt_nombre">Name</string>
+    <string name="txt_autor">Author</string>
+    <string name="txt_apellidos">Last names</string>
+    <string name="txt_edad">Age</string>
+    <string name="txt_telefono">Telephone</string>
+    <string name="txt_seleccionar_autor">Select a author</string>
+    <string name="txt_seleccionar_fuente">Select a source</string>
+    <string name="txt_seleccionar_tipo">Select type</string>
+    <string name="txt_mensaje_autor">Choose a author of your memory</string>
+    <string name="txt_mensaje_nuevo_autor">New author</string>
+    <string name="txt_mensaje_guardar_autor">Save author</string>
+    <string name="txt_mensaje_guardar_borrador">Save in drafts</string>
+    <string name="txt_mensaje_extraido">Text from</string>
+    <string name="txt_mensaje_fuente">Choose a source of your memory</string>
+    <string name="txt_mensaje_guardar_fuente">Save source</string>
+    <string name="txt_mensaje_tipo_fuente">Type of source</string>
+    <string name="txt_mensaje_publicar">Publish</string>
+    <string name="txt_mensaje_compartir">Sharing</string>
+    <string name="txt_mensaje_ultimas_publicaciones">Latest articles</string>
 </resources>

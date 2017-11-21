@@ -18,7 +18,9 @@ import android.widget.ToggleButton;
 
 public class DVActivityConfig extends AppCompatActivity implements View.OnClickListener {
     private CheckBox _checkEspanol, _checkIngles;
+    private SharedPreferences sharedPref;
     private ToggleButton _toggleButton;
+    private String _idiom, _saveTitles;
     private Button _btnGuardar;
 
     @Override
@@ -46,33 +48,41 @@ public class DVActivityConfig extends AppCompatActivity implements View.OnClickL
                 }
             }
         });
-        SharedPreferences sharedPref = getSharedPreferences("preferenceConfig", Context.MODE_PRIVATE);
+        sharedPref = getSharedPreferences("preferenceConfig", Context.MODE_PRIVATE);
         String prefeIdioma = sharedPref.getString("prefeIdioma", "");
         String prefeTitulos = sharedPref.getString("prefeTitulos", "");
         if (prefeIdioma.equals("")) {
             _checkEspanol.setChecked(true);
             _checkIngles.setChecked(false);
-        } else if (prefeIdioma.equals("Espanol")) {
+            _idiom = "Spanish";
+        } else if (prefeIdioma.equals("Spanish")) {
             _checkEspanol.setChecked(true);
             _checkIngles.setChecked(false);
-        } else if (prefeIdioma.equals("Ingles")) {
+            _idiom = "Spanish";
+        } else if (prefeIdioma.equals("English")) {
             _checkIngles.setChecked(true);
             _checkEspanol.setChecked(false);
+            _idiom = "English";
         }
 
         if (prefeTitulos.equals("")) {
             _toggleButton.setChecked(false);
         } else if (prefeTitulos.equals("Si")) {
             _toggleButton.setChecked(true);
+            _saveTitles = "yes";
         } else if (prefeTitulos.equals("No")) {
             _toggleButton.setChecked(false);
+            _saveTitles = "no";
         }
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnGuardar) {
-
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString("prefeIdioma", _idiom);
+            editor.putString("prefeTitulos", _saveTitles);
+            editor.apply();
         }
     }
 }

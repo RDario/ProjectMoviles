@@ -15,28 +15,35 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@android:drawable/sym_def_app_icon"
         android:contentDescription="@string/txt_placeholder"
         android:layout_margin="8dp"/>
 
     <TextView
-        android:id="@+id/txtNomUser"
-        android:layout_width="match_parent"
+        android:id="@+id/txtSignOut"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
         android:textColor="@color/blanco"
-        android:text=""
-        android:layout_toRightOf="@+id/imgPerfil" />
+        android:textSize="14sp"
+        android:text="@string/txt_mensaje_signout"
+        android:layout_below="@+id/imgPerfil"/>
 
     <TextView
-        android:id="@+id/txtApeUser"
-        android:layout_width="match_parent"
+        android:id="@+id/txtSignIn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="15sp"
         android:textColor="@color/blanco"
-        android:text=""
+        android:textSize="14sp"
+        android:text="@string/txt_mensaje_signin"
+        android:layout_below="@+id/imgPerfil"/>
+
+    <TextView
+        android:id="@+id/txtNomUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:textColor="@color/blanco"
         android:layout_toRightOf="@+id/imgPerfil"
-        android:layout_below="@+id/txtNomUser" />
+        android:layout_margin="5dp"/>
 
     <TextView
         android:id="@+id/btnLoginFace"
@@ -48,9 +55,11 @@
         android:textColor="@color/blanco"
         android:textSize="12sp"
         android:gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_below="@+id/txtApeUser"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@+id/txtNomUser"
         android:layout_toRightOf="@+id/imgPerfil"/>
 
     <com.twitter.sdk.android.core.identity.TwitterLoginButton
@@ -59,5 +68,7 @@
         android:layout_height="30dp"
         android:textSize="12sp"
         android:layout_below="@+id/btnLoginFace"
-        android:layout_toRightOf="@+id/imgPerfil"/>
+        android:layout_toRightOf="@+id/imgPerfil"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 </RelativeLayout>

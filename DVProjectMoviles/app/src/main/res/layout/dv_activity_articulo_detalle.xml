@@ -34,7 +34,7 @@
                 android:layout_marginBottom="2dp"/>
 
             <TextView
-                android:id="@+id/txtSubtitulo"
+                android:id="@+id/txtDescripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_subtitulo"
@@ -53,6 +53,7 @@
             android:layout_height="170dp"
             android:layout_below="@+id/linearHeaderArticulo"
             android:src="@color/cardview_dark_background"
+            android:visibility="gone"
             android:contentDescription="@string/txt_placeholder" />
 
         <TextView
@@ -65,16 +66,17 @@
             android:textSize="18sp"
             android:gravity="left"
             android:layout_marginTop="12dp"
+            android:layout_marginRight="10dp"
             android:layout_below="@+id/imgArticulo"
-            android:layout_alignLeft="@+id/txtSeccion"
-            android:layout_alignStart="@+id/txtSeccion" />
+            android:layout_alignLeft="@+id/txtAutor"
+            android:layout_alignStart="@+id/txtAutor" />
 
         <TextView
-            android:id="@+id/txtSeccion"
+            android:id="@+id/txtAutor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtTexto"
-            android:text="@string/txt_subtitulo"
+            android:text="@string/txt_autor"
             android:textColor="@color/colorAccent"
             android:textSize="15sp"
             android:layout_marginLeft="15dp"
@@ -94,19 +96,19 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_below="@id/txtTexto"
-            android:layout_toRightOf="@+id/txtSeccion"/>
+            android:layout_toRightOf="@+id/txtAutor"/>
 
         <RelativeLayout
             android:id="@+id/relativeAutor"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/txtSeccion"
+            android:layout_below="@+id/txtAutor"
             android:gravity="left"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgAutor"
+                android:id="@+id/imgUsuario"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/profile_pic_placeholder"
@@ -114,15 +116,14 @@
                 android:layout_marginRight="10dp" />
 
             <TextView
-                android:id="@+id/txtNombreAutor"
+                android:id="@+id/txtUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
-                android:layout_toRightOf="@+id/imgAutor"
-                android:text="@string/txt_autor"
+                android:layout_toRightOf="@+id/imgUsuario"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"/>
 
@@ -132,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/negro"
                 android:textSize="14sp"
-                android:layout_toRightOf="@+id/imgAutor"
+                android:layout_toRightOf="@+id/imgUsuario"
                 android:layout_alignParentBottom="true"
                 android:text="@string/txt_mensaje_mas_sobre_autor"
                 android:layout_marginLeft="10dp"
@@ -148,7 +149,7 @@
             android:focusableInTouchMode="true">
 
             <TextView
-                android:id="@+id/txtDescripcionAutor"
+                android:id="@+id/txtDescripcionUser"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gris"

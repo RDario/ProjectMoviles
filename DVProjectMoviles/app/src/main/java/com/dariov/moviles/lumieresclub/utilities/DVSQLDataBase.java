@@ -42,6 +42,12 @@ public class DVSQLDataBase extends SQLiteOpenHelper {
     public static final String COLUMN_URL_IMG_USUARIO = "urlImgUsuario";
     public static final String COLUMN_URL_IMG_ARTICULO = "urlImgArticulo";
 
+    public static final String TABLE_AUTORES = "autores";
+    public static final String COLUMN_AUTOR_NOMBRE = "nomAutor";
+
+    public static final String TABLE_FUENTES = "fuentes";
+    public static final String COLUMN_FUENTES_NOMBRE = "nomFuentes";
+
     private static final String TABLE_ARTICULO_CREATE = "create table "
             + TABLE_ARTICULO
             + "(" + COLUMN_ID_ARTICULO + " integer primary key autoincrement, "
@@ -59,6 +65,14 @@ public class DVSQLDataBase extends SQLiteOpenHelper {
             + COLUMN_URL_IMG_USUARIO + " text, "
             + COLUMN_URL_IMG_ARTICULO + " text);";
 
+    private static final String TABLE_AUTORES_CREATE = "create table "
+            + TABLE_AUTORES
+            + "(" + COLUMN_AUTOR_NOMBRE + " text);";
+
+    private static final String TABLE_FUENTES_CREATE = "create table "
+            + TABLE_FUENTES
+            + "(" + COLUMN_FUENTES_NOMBRE + " text);";
+
     public DVSQLDataBase(Context context, String s, Object o, int i) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -66,12 +80,22 @@ public class DVSQLDataBase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(TABLE_ARTICULO_CREATE);
+        db.execSQL(TABLE_AUTORES_CREATE);
+        db.execSQL(TABLE_FUENTES_CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ARTICULO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_AUTORES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_FUENTES);
         onCreate(db);
+    }
+
+    public void deleteRow(String value) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM " + TABLE_ARTICULO + " WHERE idArticulo" + "='"+value+"'");
+        db.close();
     }
 
     public SQLiteDatabase getDB() {

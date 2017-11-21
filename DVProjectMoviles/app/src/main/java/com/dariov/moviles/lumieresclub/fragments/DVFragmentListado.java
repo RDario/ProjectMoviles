@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,6 +71,7 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         if (getArguments().getInt("isFromPerfil") == 1) {
             _idUser = getArguments().getString("disId");
+            title = "Borradores";
         } else {
             page = getArguments().getString("disId", "");
             title = getArguments().getString("disTitle");
@@ -84,6 +87,23 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener,
         _listView = view.findViewById(R.id.listViewMain);
         if (_idUser != null && _idUser.equals("1")) {
             consulta(getActivity());
+            ItemTouchHelper.SimpleCallback itemTouch = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                @Override
+                public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                    return false;
+                }
+
+                @Override
+                public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                    int position = viewHolder.getAdapterPosition();
+                    DVSQLDataBase admin = new DVSQLDataBase(getContext(), "databaseMoviles.db", null, 1);
+                    admin.deleteRow(_listaMain.get(position).get_idArticulo());
+                    _listaMain.remove(position);
+                    _adapterListado.notifyDataSetChanged();
+                }
+            };
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemTouch);
+            itemTouchHelper.attachToRecyclerView(_listView);
         }
         return view;
     }
@@ -139,7 +159,9 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener,
 
     @Override
     public void onClick(View view) {
+        DVArticulo articulo = (DVArticulo) view.getTag();
         Intent intent = new Intent(getActivity(), DVActivityDetalleArticulo.class);
+        intent.putExtra("dvarticulo", articulo);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent. FLAG_ACTIVITY_MULTIPLE_TASK);
         startActivityForResult(intent, 0);
     }
@@ -175,7 +197,8 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener,
                     fila.getString(9),
                     fila.getString(10),
                     fila.getString(11),
-                    fila.getString(12)));
+                    fila.getString(12),
+                    ""));
             while (fila.moveToNext()) {
                 _listaMain.add(new DVArticulo(
                         fila.getString(0),
@@ -190,21 +213,8 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener,
                         fila.getString(9),
                         fila.getString(10),
                         fila.getString(11),
-                        fila.getString(12)));
-
-                Log.e(getClass().getSimpleName(), " -------1----> " + fila.getString(0));
-                Log.e(getClass().getSimpleName(), " -------2----> " + fila.getString(1));
-                Log.e(getClass().getSimpleName(), " -------3----> " + fila.getString(2));
-                Log.e(getClass().getSimpleName(), " -------4----> " + fila.getString(3));
-                Log.e(getClass().getSimpleName(), " -------5----> " + fila.getString(4));
-                Log.e(getClass().getSimpleName(), " -------6----> " + fila.getString(5));
-                Log.e(getClass().getSimpleName(), " -------7----> " + fila.getString(6));
-                Log.e(getClass().getSimpleName(), " -------8----> " + fila.getString(7));
-                Log.e(getClass().getSimpleName(), " -------9----> " + fila.getString(8));
-                Log.e(getClass().getSimpleName(), " -------10----> " + fila.getString(9));
-                Log.e(getClass().getSimpleName(), " -------11----> " + fila.getString(10));
-                Log.e(getClass().getSimpleName(), " -------12----> " + fila.getString(11));
-                Log.e(getClass().getSimpleName(), " -------13----> " + fila.getString(12));
+                        fila.getString(12),
+                        ""));
             }
             _adapterListado.setListaArticulo(_listaMain);
             _adapterListado.setOnClickListener(this);

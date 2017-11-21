@@ -1,11 +1,14 @@
 package com.dariov.moviles.lumieresclub.utilities;
 
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -14,6 +17,7 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -112,14 +116,13 @@ public class DVHiloDescarga extends AsyncTask<URI, Integer, String> {
     }
 
     public String descargaPost(URI url) {
-        Log.e("ADHiloDescarga","------url-Post------->> "+url);
         String response = null;
         if (url != null){
             int status = 0;
             HttpURLConnection httpURLConnection = null;
             try {
                 httpURLConnection = (HttpURLConnection) url.toURL().openConnection();
-                httpURLConnection.setReadTimeout(10000);
+                httpURLConnection.setReadTimeout(20000);
                 httpURLConnection.setConnectTimeout(15000);
                 httpURLConnection.setUseCaches(false);
                 httpURLConnection.setDoOutput(true);
@@ -136,12 +139,13 @@ public class DVHiloDescarga extends AsyncTask<URI, Integer, String> {
                 os.close();
 
                 status = httpURLConnection.getResponseCode();
-                if (status == HttpURLConnection.HTTP_OK){
+                Log.e("HiloDescargaImagen","------status-POST-------> " + status);
+                if (status == HttpURLConnection.HTTP_OK) {
                     InputStream inputStream = new BufferedInputStream(httpURLConnection.getInputStream());
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                     StringBuilder stringBuilder = new StringBuilder();
                     String linea = null;
-                    while ((linea = bufferedReader.readLine()) != null){
+                    while ((linea = bufferedReader.readLine()) != null) {
                         stringBuilder.append(linea).append("\n");
                     }
                     response = stringBuilder.toString();
