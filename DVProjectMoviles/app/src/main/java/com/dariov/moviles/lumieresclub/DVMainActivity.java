@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -23,7 +22,7 @@ import android.widget.Toast;
 
 import com.dariov.moviles.lumieresclub.adapters.DVPagerAdapterFragments;
 import com.dariov.moviles.lumieresclub.fragments.DVFragmentListado;
-import com.dariov.moviles.lumieresclub.fragments.DVLoginSingleton;
+import com.dariov.moviles.lumieresclub.utilities.DVLoginSingleton;
 import com.dariov.moviles.lumieresclub.interfaces.DVListenerActualizarFoto;
 import com.dariov.moviles.lumieresclub.models.DVItemMenu;
 import com.dariov.moviles.lumieresclub.models.DVUsuario;
@@ -165,6 +164,8 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         if (_usuarioLog != null) {
             DVLoginSingleton.setDatos(
                     _usuarioLog.get_nombre(),
+                    _usuarioLog.get_apellidoP(),
+                    _usuarioLog.get_apellidoM(),
                     _usuarioLog.get_correo(),
                     _usuarioLog.get_contrasenia(),
                     _usuarioLog.get_urlImg());
@@ -316,7 +317,7 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         } else if (view.getId() == R.id.txtSignOut) {
             _txtSignIn.setVisibility(View.GONE);
             _txtSignout.setVisibility(View.VISIBLE);
-            DVLoginSingleton.setDatos("", "","","");
+            DVLoginSingleton.setDatos("", "","","", "", "");
             _txtNomUser.setText("");
             LoginManager.getInstance().logOut();
             Picasso.with(_imgPerfil.getContext()).

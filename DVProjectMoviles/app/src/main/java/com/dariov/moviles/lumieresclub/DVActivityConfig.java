@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 /**
@@ -37,6 +38,7 @@ public class DVActivityConfig extends AppCompatActivity implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
                     _checkIngles.setChecked(false);
+                    _idiom = "Spanish";
                 }
             }
         });
@@ -45,12 +47,17 @@ public class DVActivityConfig extends AppCompatActivity implements View.OnClickL
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
                     _checkEspanol.setChecked(false);
+                    _idiom = "English";
                 }
             }
         });
         sharedPref = getSharedPreferences("preferenceConfig", Context.MODE_PRIVATE);
         String prefeIdioma = sharedPref.getString("prefeIdioma", "");
         String prefeTitulos = sharedPref.getString("prefeTitulos", "");
+
+        Log.e("ActivityConfig", " --------prefetitulos-----> " + prefeTitulos);
+        Log.e("ActivityConfig", " --------prefeidioma-----> " + prefeIdioma);
+
         if (prefeIdioma.equals("")) {
             _checkEspanol.setChecked(true);
             _checkIngles.setChecked(false);
@@ -69,20 +76,28 @@ public class DVActivityConfig extends AppCompatActivity implements View.OnClickL
             _toggleButton.setChecked(false);
         } else if (prefeTitulos.equals("Si")) {
             _toggleButton.setChecked(true);
-            _saveTitles = "yes";
+            _saveTitles = "Si";
         } else if (prefeTitulos.equals("No")) {
             _toggleButton.setChecked(false);
-            _saveTitles = "no";
+            _saveTitles = "No";
         }
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btnGuardar) {
+            if (_toggleButton.isChecked()) {
+                _saveTitles = "Si";
+            } else {
+                _saveTitles = "No";
+            }
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString("prefeIdioma", _idiom);
             editor.putString("prefeTitulos", _saveTitles);
             editor.apply();
+            Log.e("ActivityConfig", " --------prefetitulos-guardar----> " + _saveTitles);
+            Log.e("ActivityConfig", " --------prefetitulos-guardar----> " + _idiom);
+            Toast.makeText(view.getContext(), "Se guardó la información", Toast.LENGTH_LONG).show();
         }
     }
 }

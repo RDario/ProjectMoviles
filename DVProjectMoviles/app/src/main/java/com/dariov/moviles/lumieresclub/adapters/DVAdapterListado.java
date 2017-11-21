@@ -204,7 +204,6 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
 
         } else if (holder instanceof ViewHolderPoesia) {
-            Log.e("DVDetalleArticulo", "-----get_usuario-lista----> " + _listaArticulos.get(position).get_usuario());
             ((ViewHolderPoesia) holder)._txtTitulo.setText(_listaArticulos.get(position).get_nombreAutor());
             ((ViewHolderPoesia) holder)._txtDescripcion.setText("'"+_listaArticulos.get(position).get_descripcion()+"'");
             ((ViewHolderPoesia) holder)._txtNomUsuario.setText(_listaArticulos.get(position).get_usuario());

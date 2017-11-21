@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.dariov.moviles.lumieresclub.DVActivityDetalleArticulo;
 import com.dariov.moviles.lumieresclub.R;
@@ -29,14 +28,17 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.LinkedList;
 
 /**
  * Created by DarioValdes on 20/09/2017.
  */
 
-public class DVFragmentListado extends Fragment implements View.OnClickListener, DVHiloDescarga.DVListenerHiloDescarga {
+public class DVFragmentListado extends Fragment implements View.OnClickListener,
+        DVHiloDescarga.DVListenerHiloDescarga, SwipeRefreshLayout.OnRefreshListener {
     private DVListenerMensajePerfil _listenerMensajePerfil;
+    private SwipeRefreshLayout _swipeRefreshLayout;
     private LinkedList<DVArticulo> _listaMain;
     private DVAdapterListado _adapterListado;
     public String title, page, url, _idUser;
@@ -84,7 +86,9 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dv_fragment_listadosimple, container, false);
+        _swipeRefreshLayout = view.findViewById(R.id.refreshLayout);
         _listView = view.findViewById(R.id.listViewMain);
+        _swipeRefreshLayout.setOnRefreshListener(this);
         if (_idUser != null && _idUser.equals("1")) {
             consulta(getActivity());
             ItemTouchHelper.SimpleCallback itemTouch = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -132,6 +136,12 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener,
     }
 
     @Override
+    public void onRefresh() {
+        DVHiloDescarga hiloDescarga = new DVHiloDescarga(this);
+        hiloDescarga.execute(URI.create(url));
+    }
+
+    @Override
     public void onHiloDescargaSuccess(String res) {
         if (res != null && !res.equals("")) {
             if (_adapterListado != null && _listaMain != null) {
@@ -142,12 +152,17 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener,
                         for (int i=0;i < jsonArray.length(); i++) {
                             _listaMain.add(new DVArticulo(jsonArray.optJSONObject(i)));
                         }
+                        Collections.reverse(_listaMain);
                         _adapterListado.setListaArticulo(_listaMain);
                         _adapterListado.setOnClickListener(this);
                         _adapterListado.setContext(getActivity());
                         LinearLayoutManager llm = new LinearLayoutManager(_listView.getContext());
                         _listView.setLayoutManager(llm);
                         _listView.setAdapter(_adapterListado);
+                        if (_swipeRefreshLayout.isRefreshing()) {
+                            _swipeRefreshLayout.setRefreshing(false);
+                            Log.e("HiloDescarga", "---------res-isRefreshing------> ");
+                        }
                     }
                 } catch (JSONException e) {
                     Log.e(this.getClass().getSimpleName(), "-----JSON-Exception---> "+ e);
