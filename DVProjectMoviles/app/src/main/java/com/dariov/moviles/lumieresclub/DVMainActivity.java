@@ -73,6 +73,7 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Twitter.initialize(this);
         if (getIntent().getExtras() != null) {
             _usuarioLog = getIntent().getExtras().getParcelable("dvusuario");
         }
@@ -119,15 +120,25 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
             _twitterLoginButton.setVisibility(View.GONE);
         } else {
             TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
-            TwitterAuthToken authToken = session.getAuthToken();
-            String token = authToken.token;
-            String secret = authToken.secret;
-            _txtNomUser.setText(session.getUserName());
-            if (token != null && secret != null) {
-                _twitterLoginButton.setVisibility(View.VISIBLE);
-                _txtSignIn.setVisibility(View.GONE);
-                _btnLoginFace.setVisibility(View.GONE);
-                _txtSignout.setVisibility(View.VISIBLE);
+            TwitterAuthToken authToken = null;
+            if (session != null) {
+                authToken = session.getAuthToken();
+                String token = authToken.token;
+                String secret = authToken.secret;
+                _txtNomUser.setText(session.getUserName());
+
+                if (token != null && secret != null) {
+                    _twitterLoginButton.setVisibility(View.VISIBLE);
+                    _txtSignIn.setVisibility(View.GONE);
+                    _btnLoginFace.setVisibility(View.GONE);
+                    _txtSignout.setVisibility(View.VISIBLE);
+                } else {
+                    _btnLoginFace.setTag(false);
+                    _btnLoginFace.setText(getResources().getString(R.string.txt_facebook_login));
+                    setDatosLoginFacebook("", "", R.drawable.profile_pic_placeholder);
+                    _txtSignout.setVisibility(View.GONE);
+                    _btnLoginFace.setVisibility(View.VISIBLE);
+                }
             } else {
                 _btnLoginFace.setTag(false);
                 _btnLoginFace.setText(getResources().getString(R.string.txt_facebook_login));
