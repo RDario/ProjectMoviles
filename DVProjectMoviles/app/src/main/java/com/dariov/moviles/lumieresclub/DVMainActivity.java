@@ -1,7 +1,9 @@
 package com.dariov.moviles.lumieresclub;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -16,6 +18,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +43,8 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthToken;
+import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
@@ -70,7 +76,6 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         if (getIntent().getExtras() != null) {
             _usuarioLog = getIntent().getExtras().getParcelable("dvusuario");
         }
-        Twitter.initialize(this);
         DVLoginSingleton._listenerActualizarFoto = this;
         setContentView(R.layout.activity_dvmain);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -113,10 +118,23 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
                     Profile.getCurrentProfile().getProfilePictureUri(100, 100));
             _twitterLoginButton.setVisibility(View.GONE);
         } else {
-            _btnLoginFace.setTag(false);
-            _btnLoginFace.setText(getResources().getString(R.string.txt_facebook_login));
-            setDatosLoginFacebook("", "", R.drawable.profile_pic_placeholder);
-            _twitterLoginButton.setVisibility(View.VISIBLE);
+            TwitterSession session = TwitterCore.getInstance().getSessionManager().getActiveSession();
+            TwitterAuthToken authToken = session.getAuthToken();
+            String token = authToken.token;
+            String secret = authToken.secret;
+            _txtNomUser.setText(session.getUserName());
+            if (token != null && secret != null) {
+                _twitterLoginButton.setVisibility(View.VISIBLE);
+                _txtSignIn.setVisibility(View.GONE);
+                _btnLoginFace.setVisibility(View.GONE);
+                _txtSignout.setVisibility(View.VISIBLE);
+            } else {
+                _btnLoginFace.setTag(false);
+                _btnLoginFace.setText(getResources().getString(R.string.txt_facebook_login));
+                setDatosLoginFacebook("", "", R.drawable.profile_pic_placeholder);
+                _txtSignout.setVisibility(View.GONE);
+                _btnLoginFace.setVisibility(View.VISIBLE);
+            }
         }
 
         _twitterLoginButton.setCallback(new com.twitter.sdk.android.core.Callback<TwitterSession>() {

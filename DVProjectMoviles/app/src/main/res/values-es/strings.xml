@@ -41,6 +41,8 @@
     <string name="txt_mensaje_bienvenido">Bienvenido</string>
     <string name="txt_mensaje_signout">Cerrar sesión</string>
     <string name="txt_mensaje_drafts">Borradores</string>
+    <string name="txt_mensaje_written_by">Escrito por</string>
+    <string name="txt_mensaje_facebook_login">Inicia sesipon primero para compartir en Fcaebook</string>
 
     <!-- Test/Debug Strings -->
     <string name="txt_placeholder">Placeholder App</string>

@@ -117,6 +117,7 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((ViewHolderArticuloFull) holder)._txtFecha.setText(_listaArticulos.get(position).get_fecha());
             ((ViewHolderArticuloFull) holder)._txtTitulo.setTypeface(_fuenteLibro);
             ((ViewHolderArticuloFull) holder)._txtDescripcion.setTypeface(_fuenteLibro);
+            ((ViewHolderArticuloFull) holder)._imgArticulo.setVisibility(View.GONE);
 
             if (_listaArticulos.get(position).get_urlImgArticulo() != null && !_listaArticulos.get(position).get_urlImgArticulo().equals("")) {
                 Picasso.with(((ViewHolderArticuloFull) holder)._imgArticulo.getContext()).

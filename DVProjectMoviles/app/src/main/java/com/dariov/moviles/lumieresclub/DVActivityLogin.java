@@ -28,6 +28,7 @@ import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.Twitter;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
@@ -58,6 +59,7 @@ public class DVActivityLogin extends AppCompatActivity implements FacebookCallba
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Twitter.initialize(this);
         SharedPreferences sharedPref = getSharedPreferences("preferenceConfig", Context.MODE_PRIVATE);
         String prefeIdioma = sharedPref.getString("prefeIdioma", "");
         if (prefeIdioma.equals("Spanish")) {
@@ -92,6 +94,18 @@ public class DVActivityLogin extends AppCompatActivity implements FacebookCallba
                 }
             };
         }
+
+        _twitterLoginButton.setCallback(new com.twitter.sdk.android.core.Callback<TwitterSession>() {
+            @Override
+            public void success(Result<TwitterSession> result) {
+                Log.e("Twitter", " --------twittersession-success-----> " + result);
+            }
+
+            @Override
+            public void failure(TwitterException exception) {
+                Log.e("Twitter", " --------twittersession-failure-----> " + exception);
+            }
+        });
     }
 
     @Override
@@ -106,15 +120,7 @@ public class DVActivityLogin extends AppCompatActivity implements FacebookCallba
             LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
             _accessTokenTracker.startTracking();
         } else if (view.getId() == R.id.btnLoginTwitter) {
-            _twitterLoginButton.setCallback(new com.twitter.sdk.android.core.Callback<TwitterSession>() {
-                @Override
-                public void success(Result<TwitterSession> result) {
-                }
 
-                @Override
-                public void failure(TwitterException exception) {
-                }
-            });
         } else if (view.getId() == R.id.btnContinuar) {
             Intent intent = new Intent(DVActivityLogin.this, DVMainActivity.class);
             startActivity(intent);

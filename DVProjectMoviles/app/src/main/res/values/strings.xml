@@ -45,6 +45,8 @@
     <string name="txt_mensaje_bienvenido">Welcome</string>
     <string name="txt_mensaje_signout">Sign out</string>
     <string name="txt_mensaje_drafts">Drafts</string>
+    <string name="txt_mensaje_written_by">Written by</string>
+    <string name="txt_mensaje_facebook_login">Start session with Facebook first to sharing</string>
 
     <!-- Test/Debug Strings -->
     <string name="txt_placeholder">Placeholder App</string>
