@@ -18,14 +18,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dariov.moviles.lumieresclub.utilities.DVLoginSingleton;
 import com.dariov.moviles.lumieresclub.utilities.DVHiloDescarga;
+import com.dariov.moviles.lumieresclub.utilities.DVLoginSingleton;
 import com.dariov.moviles.lumieresclub.utilities.DVSQLDataBase;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.share.Sharer;
-import com.facebook.share.widget.ShareDialog;
 
 import java.net.URI;
 import java.text.DateFormat;

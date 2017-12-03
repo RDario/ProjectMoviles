@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -39,6 +40,7 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 
 public class DVActivityDetalleArticulo extends AppCompatActivity implements View.OnClickListener {
     private TextView _txtTitulo, _txtDescripcion, _txtTexto, _txtAutor, _txtUsuario, _txtCompartir, _txtCompartirTwitter, _txtDescripcionUser;
+    private ScaleGestureDetector mScaleDetector;
     private StickyScrollView _stickyScrollView;
     private ExpandableLayout _expandableView;
     private CallbackManager _callbackManager;

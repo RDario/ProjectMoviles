@@ -73,4 +73,5 @@
     <string name="txt_mensaje_publicar">Publicar</string>
     <string name="txt_mensaje_compartir">Compartir</string>
     <string name="txt_mensaje_ultimas_publicaciones">Últimas publicaciones</string>
+    <string name="txt_mensaje_showmap">Ver Mapa</string>
 </resources>

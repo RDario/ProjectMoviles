@@ -74,6 +74,8 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
                     return 4;
                 case "MANUSCRITO":
                     return 5;
+                case "EVENTO":
+                    return 6;
                 default:
                     return 2;
             }
@@ -87,8 +89,8 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
         View view;
         switch (viewType) {
             case 1:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dv_adapter_articulo_full, parent, false);
-                return new ViewHolderArticuloFull(view);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dv_adapter_articulo_half, parent, false);
+                return new ViewHolderArticulo(view);
             case 2:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dv_adapter_articulo_half, parent, false);
                 return new ViewHolderArticulo(view);
@@ -102,14 +104,14 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dv_adapter_articulo_half, parent, false);
                 return new ViewHolderArticulo(view);
             case 6:
-                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dv_adapter_articulo_half, parent, false);
-                return new ViewHolderArticulo(view);
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dv_adapter_articulo_full, parent, false);
+                return new ViewHolderArticuloFull(view);
         }
         return null;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof ViewHolderArticuloFull) {
             ((ViewHolderArticuloFull) holder)._txtTitulo.setText(_listaArticulos.get(position).get_titulo());
             ((ViewHolderArticuloFull) holder)._txtDescripcion.setText(_listaArticulos.get(position).get_descripcion());
@@ -117,7 +119,6 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
             ((ViewHolderArticuloFull) holder)._txtFecha.setText(_listaArticulos.get(position).get_fecha());
             ((ViewHolderArticuloFull) holder)._txtTitulo.setTypeface(_fuenteLibro);
             ((ViewHolderArticuloFull) holder)._txtDescripcion.setTypeface(_fuenteLibro);
-            ((ViewHolderArticuloFull) holder)._imgArticulo.setVisibility(View.GONE);
 
             if (_listaArticulos.get(position).get_urlImgArticulo() != null && !_listaArticulos.get(position).get_urlImgArticulo().equals("")) {
                 Picasso.with(((ViewHolderArticuloFull) holder)._imgArticulo.getContext()).
@@ -129,7 +130,8 @@ public class DVAdapterListado extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                             @Override
                             public void onError() {
-                                Log.e("Picasso", this.getClass().getSimpleName() + "----------error-al-cargar-imagen---------> ");
+                                Log.e("Picasso", this.getClass().getSimpleName() + "----------error-al-cargar-imagen---------> " +
+                                        _listaArticulos.get(position).get_urlImgArticulo());
                             }
                         });
             } else {

@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.dariov.moviles.lumieresclub.DVActivityDetalleArticulo;
+import com.dariov.moviles.lumieresclub.DVActivityDetalleEvento;
 import com.dariov.moviles.lumieresclub.R;
 import com.dariov.moviles.lumieresclub.adapters.DVAdapterListado;
 import com.dariov.moviles.lumieresclub.interfaces.DVListenerMensajePerfil;
@@ -174,11 +175,21 @@ public class DVFragmentListado extends Fragment implements View.OnClickListener,
 
     @Override
     public void onClick(View view) {
-        DVArticulo articulo = (DVArticulo) view.getTag();
-        Intent intent = new Intent(getActivity(), DVActivityDetalleArticulo.class);
-        intent.putExtra("dvarticulo", articulo);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent. FLAG_ACTIVITY_MULTIPLE_TASK);
-        startActivityForResult(intent, 0);
+        if (view.getTag() != null) {
+            if (((DVArticulo) view.getTag()).get_tipoArticulo().equals("EVENTO")) {
+                DVArticulo articulo = (DVArticulo) view.getTag();
+                Intent intent = new Intent(getActivity(), DVActivityDetalleEvento.class);
+                intent.putExtra("dvarticulo", articulo);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent. FLAG_ACTIVITY_MULTIPLE_TASK);
+                startActivityForResult(intent, 0);
+            } else {
+                DVArticulo articulo = (DVArticulo) view.getTag();
+                Intent intent = new Intent(getActivity(), DVActivityDetalleArticulo.class);
+                intent.putExtra("dvarticulo", articulo);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent. FLAG_ACTIVITY_MULTIPLE_TASK);
+                startActivityForResult(intent, 0);
+            }
+        }
     }
 
     public void setListenerMensaje(DVListenerMensajePerfil listenerMensaje) {

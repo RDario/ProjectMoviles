@@ -7,7 +7,7 @@ include("DVPublicacion.php");
 $connection = conectarBD();
 
 mysqli_query($connection, 'SET CHARACTER SET utf8');
-$sql = "SELECT * FROM viewlastarticulos;";
+$sql = "SELECT * FROM view_eventos;";
 $result = $connection->query($sql);
 $arrayPublicaciones = array();
 if ($result->num_rows > 0) {

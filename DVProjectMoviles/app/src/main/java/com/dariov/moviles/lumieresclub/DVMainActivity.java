@@ -2,35 +2,45 @@ package com.dariov.moviles.lumieresclub;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Matrix;
+import android.graphics.Point;
+import android.graphics.PointF;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GestureDetectorCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.EdgeEffectCompat;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.webkit.CookieManager;
-import android.webkit.CookieSyncManager;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dariov.moviles.lumieresclub.adapters.DVPagerAdapterFragments;
 import com.dariov.moviles.lumieresclub.fragments.DVFragmentListado;
-import com.dariov.moviles.lumieresclub.utilities.DVLoginSingleton;
 import com.dariov.moviles.lumieresclub.interfaces.DVListenerActualizarFoto;
 import com.dariov.moviles.lumieresclub.models.DVItemMenu;
 import com.dariov.moviles.lumieresclub.models.DVUsuario;
 import com.dariov.moviles.lumieresclub.utilities.DVHiloDescarga;
+import com.dariov.moviles.lumieresclub.utilities.DVLoginSingleton;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -58,17 +68,29 @@ import java.util.LinkedList;
 
 public class DVMainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, TabLayout.OnTabSelectedListener,
         FacebookCallback<LoginResult>, View.OnClickListener, DVListenerActualizarFoto {
-    private TextView _txtNomUser, _btnLoginFace;
     private DVPagerAdapterFragments _pagerAdapterFragments;
     private LinkedList<DVFragmentListado> _listaFrags;
     private TwitterLoginButton _twitterLoginButton;
     private AccessTokenTracker _accessTokenTracker;
+    private TextView _txtNomUser, _btnLoginFace;
     private TextView _txtSignout, _txtSignIn;
+    private ImageView _imgPerfil, _imgPencil;
     private CallbackManager callbackManager;
+    private Matrix matrix = new Matrix();
     private TabLayout _tabLayoutMain;
     private DVUsuario _usuarioLog;
     private ViewPager _viewPager;
-    private ImageView _imgPerfil;
+    private float scale = 1f;
+    public PointF mid = new PointF();
+    public static final int NONE = 0;
+    public static final int DRAG = 1;
+    public static final int ZOOM = 2;
+    private static final int MAX_CLICK_DISTANCE = 15;
+    private static final int MAX_CLICK_DURATION = 1000;
+    private long pressStartTime;
+    public int mode = NONE;
+    private float pressedX;
+    private float pressedY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +111,10 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         navigationView.setNavigationItemSelectedListener(this);
         FloatingActionButton floatingActionButton = (FloatingActionButton) findViewById(R.id.floatActionBottom);
         floatingActionButton.setOnClickListener(this);
+
         _tabLayoutMain = (TabLayout) findViewById(R.id.tabLayoutMain);
         _viewPager = (ViewPager) findViewById(R.id.viewPagerMain);
-
+        _imgPencil = (ImageView) findViewById(R.id.imgPencil);
         View loginHeader = navigationView.getHeaderView(0);
         _imgPerfil = loginHeader.findViewById(R.id.imgPerfil);
         _txtSignIn = loginHeader.findViewById(R.id.txtSignIn);
@@ -104,6 +127,8 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         _btnLoginFace.setOnClickListener(this);
         _txtSignout.setOnClickListener(this);
         _imgPerfil.setOnClickListener(this);
+        _imgPencil.setOnClickListener(this);
+        ScaleGestureDetector scaleGestureDetector = new ScaleGestureDetector(this, new ScaleListener());
 
         _accessTokenTracker = new AccessTokenTracker() {
             @Override
@@ -217,6 +242,57 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
                         });
             }
         }
+
+        _imgPencil.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent motionEvent) {
+
+                float dx = 0, dy = 0;
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        pressStartTime = System.currentTimeMillis();
+                        dx = _imgPencil.getX() - motionEvent.getRawX();
+                        dy = _imgPencil.getY() - motionEvent.getRawY();
+                        pressedX = motionEvent.getX();
+                        pressedY = motionEvent.getY();
+                        Log.e("OnTouch", "-------onTouch-DOWN-------> ");
+                        break;
+
+                    case MotionEvent.ACTION_MOVE:
+                        _imgPencil.animate()
+                                .x(motionEvent.getRawX() + dx)
+                                .y(motionEvent.getRawY() + dy)
+                                .setDuration(0)
+                                .start();
+                        Log.e("OnTouch", "-------onTouch-MOVE-------> ");
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        long pressDuration = System.currentTimeMillis() - pressStartTime;
+                        if (pressDuration < MAX_CLICK_DURATION && distance(pressedX, pressedY, motionEvent.getX(), motionEvent.getY()) < MAX_CLICK_DISTANCE) {
+                            Log.e("OnTouch", "-------onTouch-CLICK-------> ");
+                            Intent intent = new Intent(DVMainActivity.this, DVActivityNuevoArticulo.class);
+                            startActivity(intent);
+                        }
+                        break;
+                    default:
+                        Log.e("OnTouch", "-------onTouch-false-------> ");
+                        return false;
+                }
+                Log.e("OnTouch", "-------onTouch-true-------> ");
+                return true;
+            }
+        });
+    }
+
+    private float distance(float x1, float y1, float x2, float y2) {
+        float dx = x1 - x2;
+        float dy = y1 - y2;
+        float distanceInPx = (float) Math.sqrt(dx * dx + dy * dy);
+        return pxToDp(distanceInPx);
+    }
+
+    private float pxToDp(float px) {
+        return px / getResources().getDisplayMetrics().density;
     }
 
     @Override
@@ -343,6 +419,9 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
         } else if (view.getId() == R.id.imgPerfil){
             Intent intent = new Intent(DVMainActivity.this, DVActivityPerfil.class);
             startActivity(intent);
+        } else if (view.getId() == R.id.imgPencil){
+            Intent intent = new Intent(DVMainActivity.this, DVActivityNuevoArticulo.class);
+            startActivity(intent);
         } else if (view.getId() == R.id.txtSignOut) {
             _txtSignIn.setVisibility(View.GONE);
             _txtSignout.setVisibility(View.VISIBLE);
@@ -405,5 +484,23 @@ public class DVMainActivity extends AppCompatActivity implements NavigationView.
     public void actualizarFoto() {
         Log.e("DVActivityMain", " ---------Llegoaqui-actualizarfoto-------->");
         _imgPerfil.setImageBitmap(DVLoginSingleton._bitmapImg);
+    }
+
+    private int convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * (metrics.densityDpi / 160f);
+        return (int) px;
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            scale *= detector.getScaleFactor();
+            scale = Math.max(0.1f, Math.min(scale, 5.0f));
+            matrix.setScale(scale, scale);
+            _imgPencil.setImageMatrix(matrix);
+            return true;
+        }
     }
 }

@@ -56,26 +56,32 @@
             android:visibility="gone"
             android:contentDescription="@string/txt_placeholder" />
 
-        <TextView
-            android:id="@+id/txtTexto"
+        <com.dariov.moviles.lumieresclub.utilities.ADZoomView
+            android:id="@+id/zoomView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/txt_contenido_bigger"
-            android:textColor="@color/gris"
-            android:textStyle="normal"
-            android:textSize="18sp"
-            android:gravity="left"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="10dp"
             android:layout_below="@+id/imgArticulo"
             android:layout_alignLeft="@+id/txtAutor"
-            android:layout_alignStart="@+id/txtAutor" />
+            android:layout_alignStart="@+id/txtAutor">
+
+            <TextView
+                android:id="@+id/txtTexto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_contenido_bigger"
+                android:textColor="@color/gris"
+                android:textStyle="normal"
+                android:textSize="16sp"
+                android:gravity="left"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="10dp" />
+        </com.dariov.moviles.lumieresclub.utilities.ADZoomView>
 
         <TextView
             android:id="@+id/txtAutor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtTexto"
+            android:layout_below="@id/zoomView"
             android:text="@string/txt_mensaje_written_by"
             android:textColor="@color/colorAccent"
             android:textSize="15sp"

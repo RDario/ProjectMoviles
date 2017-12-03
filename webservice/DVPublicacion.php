@@ -1,35 +1,35 @@
 <?php
-error_reporting(E_ALL);
 ini_set("display_errors", "1");
+error_reporting(E_ALL);
 
 class DVPublicacion {
   var $identificador;
   var $titulo;
   var $descripcion;
   var $texto;
+  var $seccion;
   var $autor;
-  var $url_img_autor;
-  var $id_autor;
+  var $fuente;
+  var $tipo;
+  var $id_usuario;
+  var $usuario;
   var $fecha;
   var $hora;
-  var $tipo;
   var $url_img_articulo;
-  var $url_pdf;
 
-  function __construct($identificador, $titulo="", $descripcion="", $texto="", $autor, $id_autor, $url_img_autor="",
-  $fecha, $hora, $tipo, $url_img_articulo="", $url_pdf="") {
+  function __construct($identificador, $titulo, $descripcion="", $texto, $seccion, $autor, $fuente, $tipo, $idUsuario, $user, $fecha, $hora, $url_img="") {
     $this-> identificador = $identificador;
     $this-> titulo = $titulo;
     $this-> descripcion = $descripcion;
     $this-> texto = $texto;
+    $this-> seccion = $seccion;
     $this-> autor = $autor;
-    $this-> id_autor = $id_autor;
-    $this-> url_img_autor = $url_img_autor;
+    $this-> fuente = $fuente;
+    $this-> tipo = $tipo;
+    $this-> id_usuario = $idUsuario;
+    $this-> usuario = $user;
     $this-> fecha = $fecha;
     $this-> hora = $hora;
-    $this-> tipo = $tipo;
-    $this-> url_img_articulo = $url_img_articulo;
-    $this-> url_pdf = $url_pdf;
+    $this-> url_img_articulo = $url_img;
   }
-}
-?>
+} ?>

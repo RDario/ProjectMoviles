@@ -38,6 +38,7 @@ public class DVArticulo implements Parcelable {
             set_textoCompleto(jsonObject.optString("texto"));
             set_seccion(jsonObject.optString("seccion"));
             set_tipoArticulo(jsonObject.optString("tipo"));
+            set_fuente(jsonObject.optString("fuente"));
             set_fecha(jsonObject.optString("fecha"));
             set_hora(jsonObject.optString("hora"));
             set_nombreAutor(jsonObject.optString("autor"));
